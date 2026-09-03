@@ -3,6 +3,7 @@
 use App\Http\Controllers\Pet\Per_dataController;
 use App\Http\Controllers\Admin\PersonalDataController;
 use App\Http\Controllers\Admin\Add_petController;
+use App\Http\Controllers\User\User_dataController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,7 @@ Route::middleware(['auth', CheckRole::class . ':user'])->prefix('User')->group(f
     Route::get('/', function () {
         return "user";
     })->name("UserDashboard");
+    Route::resource('Profile', User_dataController::class);
     Route::resource('Pet', Per_dataController::class);
 });
 

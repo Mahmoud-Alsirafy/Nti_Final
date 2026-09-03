@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pet_info::class, 'ownerId');
     }
+
+    public function images()
+    {
+        return $this->morphMany(Images::class, 'imageable');
+    }
 }
