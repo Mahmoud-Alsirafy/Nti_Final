@@ -20,14 +20,14 @@ class PersonalDataController extends Controller
     {
         // return Auth::id();
         $info = Personal_data::where('userId', Auth::id())->with('info', 'images')->get();
-        return view('test.showPersonalData', compact('info'));
+        return view('test.admin.showPersonalData', compact('info'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('test.add_personal_data');
+        return view('test.admin.add_personal_data');
     }
 
     /**
