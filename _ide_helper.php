@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 12.61.1.
+ * Generated for Laravel 12.69.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -5271,7 +5271,7 @@ namespace Illuminate\Support\Facades {
          */
         public static function lock($name, $seconds = 0, $owner = null)
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
             return $instance->lock($name, $seconds, $owner);
         }
 
@@ -5285,8 +5285,21 @@ namespace Illuminate\Support\Facades {
          */
         public static function restoreLock($name, $owner)
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
             return $instance->restoreLock($name, $owner);
+        }
+
+        /**
+         * Remove an item from the cache if it is expired.
+         *
+         * @param string $key
+         * @return bool
+         * @static
+         */
+        public static function forgetIfExpired($key)
+        {
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            return $instance->forgetIfExpired($key);
         }
 
         /**
@@ -5297,71 +5310,58 @@ namespace Illuminate\Support\Facades {
          */
         public static function flush()
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
             return $instance->flush();
         }
 
         /**
-         * Get the full path for the given cache key.
+         * Get the underlying database connection.
          *
-         * @param string $key
-         * @return string
+         * @return \Illuminate\Database\MySqlConnection
          * @static
          */
-        public static function path($key)
+        public static function getConnection()
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
-            return $instance->path($key);
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            return $instance->getConnection();
         }
 
         /**
-         * Get the Filesystem instance.
+         * Set the underlying database connection.
          *
-         * @return \Illuminate\Filesystem\Filesystem
+         * @param \Illuminate\Database\ConnectionInterface $connection
+         * @return \Illuminate\Cache\DatabaseStore
          * @static
          */
-        public static function getFilesystem()
+        public static function setConnection($connection)
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
-            return $instance->getFilesystem();
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            return $instance->setConnection($connection);
         }
 
         /**
-         * Get the working directory of the cache.
+         * Get the connection used to manage locks.
          *
-         * @return string
+         * @return \Illuminate\Database\MySqlConnection
          * @static
          */
-        public static function getDirectory()
+        public static function getLockConnection()
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
-            return $instance->getDirectory();
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            return $instance->getLockConnection();
         }
 
         /**
-         * Set the working directory of the cache.
+         * Specify the connection that should be used to manage locks.
          *
-         * @param string $directory
-         * @return \Illuminate\Cache\FileStore
+         * @param \Illuminate\Database\ConnectionInterface $connection
+         * @return \Illuminate\Cache\DatabaseStore
          * @static
          */
-        public static function setDirectory($directory)
+        public static function setLockConnection($connection)
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
-            return $instance->setDirectory($directory);
-        }
-
-        /**
-         * Set the cache directory where locks should be stored.
-         *
-         * @param string|null $lockDirectory
-         * @return \Illuminate\Cache\FileStore
-         * @static
-         */
-        public static function setLockDirectory($lockDirectory)
-        {
-            /** @var \Illuminate\Cache\FileStore $instance */
-            return $instance->setLockDirectory($lockDirectory);
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            return $instance->setLockConnection($connection);
         }
 
         /**
@@ -5372,8 +5372,21 @@ namespace Illuminate\Support\Facades {
          */
         public static function getPrefix()
         {
-            /** @var \Illuminate\Cache\FileStore $instance */
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
             return $instance->getPrefix();
+        }
+
+        /**
+         * Set the cache key prefix.
+         *
+         * @param string $prefix
+         * @return void
+         * @static
+         */
+        public static function setPrefix($prefix)
+        {
+            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            $instance->setPrefix($prefix);
         }
 
             }
@@ -10368,6 +10381,20 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Http\Client\Factory $instance */
             return $instance->globalOptions($options);
+        }
+
+        /**
+         * Execute a callback while requests are created without global middleware or global options.
+         *
+         * @template TReturn
+         * @param (\Closure(): TReturn) $callback
+         * @return TReturn
+         * @static
+         */
+        public static function withoutGlobalConfiguration($callback)
+        {
+            /** @var \Illuminate\Http\Client\Factory $instance */
+            return $instance->withoutGlobalConfiguration($callback);
         }
 
         /**
