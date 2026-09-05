@@ -7,11 +7,12 @@ use App\Models\Personal_data;
 use App\Models\Pet_info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 
 class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
@@ -19,6 +20,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'type',
+        'qr_code',
 
     ];
 

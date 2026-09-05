@@ -8,7 +8,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -30,23 +32,34 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'phone' => ['required', 'string', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        DB::beginTransaction();
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'phone' => ['required', 'string', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-        ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'qr_code' => Str::uuid(),
+            ]);
 
-        event(new Registered($user));
+            event(new Registered($user));
 
-        Auth::login($user);
+
+            Auth::login($user);
+            DB::commit();
+
+            event(new \App\Events\GenrateQr($user));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
 
         return redirect(route('UserDashboard', absolute: false));
     }
