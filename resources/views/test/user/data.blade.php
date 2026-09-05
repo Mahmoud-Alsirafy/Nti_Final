@@ -5,3 +5,9 @@
 {{ $info }}
 
 <a href="{{ route('Profile.create') }}">create</a>
+
+
+<form method="POST" action="{{ route('user.qr.regenerate') }}">
+    @csrf
+    <button type="submit">Regenerate QR Code</button>
+</form>

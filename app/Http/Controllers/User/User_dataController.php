@@ -4,13 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddUserDataValidationRequest;
-
 use App\Models\Personal_data;
 use App\Models\User;
 use App\Traits\AttachFiles;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class User_dataController extends Controller
 {
@@ -69,5 +69,15 @@ class User_dataController extends Controller
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+    public function regenerate()
+    {
+        $user = Auth::user();
+        $user->qr_code = (string) Str::uuid();
+        $user->save();
+
+        event(new \App\Events\GenrateQr($user));
+
+        return back()->with('success', 'QR Code regenerated successfully.');
     }
 }

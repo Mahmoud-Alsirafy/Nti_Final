@@ -14,6 +14,9 @@ Route::middleware(['auth', CheckRole::class . ':user'])->prefix('User')->group(f
     })->name("UserDashboard");
     Route::resource('Profile', User_dataController::class);
     Route::resource('Pet', Per_dataController::class);
+
+    Route::post('/user/qr/regenerate', [User_dataController::class, 'regenerate'])
+        ->name('user.qr.regenerate');
 });
 
 Route::middleware(['auth', CheckRole::class . ':admin'])->prefix('Admin')->group(function () {
@@ -23,6 +26,8 @@ Route::middleware(['auth', CheckRole::class . ':admin'])->prefix('Admin')->group
 
     Route::resource('Profile', PersonalDataController::class);
     Route::resource('Add_pet', Add_petController::class);
+    Route::post('/admin/qr/regenerate', [PersonalDataController::class, 'regenerate'])
+        ->name('admin.qr.regenerate');
 });
 
 

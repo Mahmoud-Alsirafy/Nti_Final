@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\GenrateQr;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PersonalDataRequest;
 use App\Models\Personal_data;
 use App\Traits\AttachFiles;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PersonalDataController extends Controller
 {
@@ -69,5 +71,16 @@ class PersonalDataController extends Controller
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function regenerate()
+    {
+        $user = Auth::user();
+        $user->qr_code = (string) Str::uuid();
+        $user->save();
+
+        event(new GenrateQr($user));
+
+        return back()->with('success', 'QR Code regenerated successfully.');
     }
 }
