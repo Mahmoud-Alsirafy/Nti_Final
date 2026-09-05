@@ -27,3 +27,4 @@ Route::middleware(['auth', CheckRole::class . ':admin'])->prefix('Admin')->group
 
 
 Route::get('/adoptions', [AdoptionController::class, 'index'])->name('adoptions.index');
+Route::post('/new_adoption', [AdoptionController::class, 'new_adoption'])->name('new_adoption');

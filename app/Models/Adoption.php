@@ -10,6 +10,7 @@ class Adoption extends Model
 {
     protected $fillable = [
         'pet_id',
+        'owner_id',
         'status',
         'adopter_id',
         'why',
