@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.min.css">
+    <title>Test</title>
+
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f6f4;
+    color: #1f2b23;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: #ffffff;
+
+    border-right: 1px solid #e5e9e4;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Logo */
+
+.logo {
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 20px;
+
+    border-bottom: 1px solid #e5e9e4;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+
+    background-color: #2f7d47;
+
+    color: #ffffff;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.logo h2 {
+    font-size: 20px;
+    margin-bottom: 3px;
+    color: #1f2b23;
+}
+
+.logo span {
+    font-size: 11px;
+    color: #667b6f;
+}
+
+
+/* Sidebar Menu */
+
+.sidebar-menu {
+    padding: 25px 15px;
+}
+
+.menu-item {
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 0 15px;
+
+    margin-bottom: 8px;
+
+    color: #667b6f;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #f1f7f3;
+    color: #2f7d47;
+}
+
+.menu-item.active {
+    background-color: #e8f2eb;
+    color: #2f7d47;
+
+    font-weight: 600;
+}
+
+.menu-icon {
+    width: 22px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+
+/* Add New Pet Button */
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding: 20px;
+}
+
+.add-pet-btn {
+    width: 100%;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    background-color: #2f7d47;
+
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.add-pet-btn:hover {
+    background-color: #256238;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    height: 75px;
+
+    margin-left: 250px;
+
+    background-color: #ffffff;
+
+    border-bottom: 1px solid #e5e9e4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 30px;
+}
+
+
+/* Search */
+
+.search-box {
+    width: 280px;
+    height: 40px;
+
+    background-color: #f1f3f1;
+
+    border: 1px solid #e5e9e4;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 0 12px;
+}
+
+.search-box span {
+    font-size: 16px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #1f2b23;
+
+    font-family: inherit;
+
+    font-size: 14px;
+}
+
+.search-box input::placeholder {
+    color: #8b958f;
+}
+
+
+/* Navbar Right */
+
+.navbar-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+/* Notification & Message */
+
+.nav-icon {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    background-color: #f1f3f1;
+
+    color: #4b5a52;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    font-size: 17px;
+}
+
+.nav-icon:hover {
+    background-color: #e8f2eb;
+    color: #2f7d47;
+}
+
+.notification-dot {
+    width: 7px;
+    height: 7px;
+
+    background-color: #ef6c4d;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    top: 8px;
+    right: 8px;
+}
+
+
+/* Profile */
+.nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.nav-profile:hover {
+    background: #f1f7f3;
+}
+
+/* Avatar */
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e8f2eb;
+    color: #2f7d47;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Name + Role */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.2;
+}
+
+.profile-info strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2b23;
+}
+
+.profile-info span {
+    font-size: 12px;
+    color: #667b6f;
+}
+
+/* Arrow */
+.profile-arrow {
+    margin-left: 4px;
+    color: #667b6f;
+    font-size: 18px;
+    line-height: 1;
+}
+
+
+/* =========================
+   TEST AREA
+========================= */
+
+.test-content {
+    margin-left: 250px;
+
+    padding: 40px;
+}
+
+.test-content h1 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+    color: #1f2b23;
+}
+
+.test-content p {
+    color: #667b6f;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .navbar {
+        margin-left: 200px;
+    }
+
+    .test-content {
+        margin-left: 200px;
+    }
+
+    .profile-info,
+    .profile-arrow {
+        display: none;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .logo {
+        justify-content: center;
+
+        padding: 10px;
+    }
+
+    .logo > div:last-child {
+        display: none;
+    }
+
+    .sidebar-menu {
+        padding: 20px 10px;
+    }
+
+    .menu-item {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .menu-item span:last-child {
+        display: none;
+    }
+
+    .sidebar-bottom {
+        padding: 10px;
+    }
+
+    .add-pet-btn {
+        font-size: 0;
+    }
+
+    .add-pet-btn span {
+        font-size: 25px;
+    }
+
+    .navbar {
+        margin-left: 70px;
+
+        padding: 0 15px;
+    }
+
+    .test-content {
+        margin-left: 70px;
+    }
+
+    .search-box {
+        width: 180px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-paw"></i>
+            </div>
+
+            <div>
+                <h2>PetCare</h2>
+                <span>Pet Management</span>
+            </div>
+
+        </div>
+
+
+        <!-- Menu -->
+
+        <nav class="sidebar-menu">
+
+            <a href="#" class="menu-item">
+
+                <span class="menu-icon">
+                    <i class="fa-regular fa-chart-bar"></i>
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="#" class="menu-item active">
+
+                <span class="menu-icon">
+                    <i class="fa-solid fa-paw"></i>
+                </span>
+
+                <span>
+                    My Pets
+                </span>
+
+            </a>
+
+
+            <a href="#" class="menu-item">
+
+                <span class="menu-icon">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </span>
+
+                <span>
+                    Adoption
+                </span>
+
+            </a>
+
+
+            <a href="#" class="menu-item">
+
+                <span class="menu-icon">
+                    <i class="fa-solid fa-user"></i>
+                </span>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+
+            <a href="#" class="menu-item">
+
+                <span class="menu-icon">
+                    <i class="fa-solid fa-gears"></i>
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+            <a href="#" class="menu-item">
+
+                <span class="menu-icon">
+                    <i class="fa-solid fa-qrcode"></i>
+                </span>
+
+                <span>
+                    Regenerate QR Code
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- Add Pet -->
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="add-pet-btn">
+
+                <span>
+                    +
+                </span>
+
+                Add New Pet
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+
+        <!-- Search -->
+
+        <div class="search-box">
+
+            <span>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+
+            <input type="text" placeholder="Search...">
+
+        </div>
+
+
+
+        <!-- Right Side -->
+
+        <div class="navbar-right">
+
+
+            <!-- Notification -->
+
+            <button class="nav-icon">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+
+
+            <!-- Messages -->
+
+            <button class="nav-icon">
+
+                <i class="fa-regular fa-comment-dots"></i>
+
+            </button>
+
+
+
+<!-- Profile -->
+<div class="nav-profile">
+
+    <div class="profile-avatar">
+        S
+    </div>
+
+    <div class="profile-info">
+        <strong>Salma</strong>
+        <span>Pet Owner</span>
+    </div>
+
+    <span class="profile-arrow">⌄</span>
+
+</div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         TEST CONTENT
+    ========================== -->
+
+    <main class="test-content">
+
+        <h1>
+            Test Page
+        </h1>
+
+        <p>
+            This page is only for testing the Sidebar and Navbar design.
+        </p>
+
+    </main>
+
+
+</body>
+
+</html>
