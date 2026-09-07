@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Account Settings</title>
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/all.min.css" />
+    </head>
+
+    <body>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-paw"></i>
+                </div>
+                <div>
+                    <h2>PetCare</h2>
+                    <span>Pet Management</span>
+                </div>
+            </div>
+
+            <!-- Menu -->
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">
+                        <i class="fa-regular fa-chart-bar"></i>
+                    </span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="my_pets.html" class="menu-item">
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-paw"></i>
+                    </span>
+                    <span>My Pets</span>
+                </a>
+
+                <a href="adoption_details.html" class="menu-item">
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </span>
+                    <span>Adoption</span>
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span>Profile</span>
+                </a>
+
+                <a href="account-settings.html" class="menu-item active">
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-gears"></i>
+                    </span>
+                    <span>Settings</span>
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </span>
+                    <span>Regenerate QR Code</span>
+                </a>
+            </nav>
+
+            <!-- Add Pet -->
+            <div class="sidebar-bottom">
+                <a href="add_pet.html" class="add-pet-btn">
+                    <span>+</span>
+                    Add New Pet
+                </a>
+            </div>
+        </aside>
+
+        <!-- Navbar -->
+        <header class="navbar">
+            <div class="search-box">
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" placeholder="Search..." />
+            </div>
+            <div class="navbar-right">
+                <button class="nav-icon" aria-label="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+                <button class="nav-icon" aria-label="Messages">
+                    <i class="fa-regular fa-comment-dots"></i>
+                </button>
+                <a href="account-settings.html" class="nav-profile">
+                    <div class="profile-avatar">S</div>
+                    <div class="profile-info">
+                        <strong>Salma</strong>
+                        <span>Pet Owner</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="page">
+                <h1>Account Settings</h1>
+
+                <p class="subtitle">
+                    Manage your personal information, clinic details, and
+                    application preferences.
+                </p>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <span class="tab active">Profile &amp; Details</span>
+                    <span class="tab">Preferences</span>
+                </div>
+
+                <div class="grid">
+                    <!-- Left column -->
+                    <div class="col-left">
+                        <div class="card">
+                            <h2>Personal Information</h2>
+
+                            <div class="photo-row">
+                                <img
+                                    class="avatar"
+                                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80"
+                                    alt="Emily Chen"
+                                />
+
+                                <div class="photo-fields">
+                                    <div class="two-inputs">
+                                        <div>
+                                            <label>First Name</label>
+                                            <input type="text" value="Emily" />
+                                        </div>
+                                        <div>
+                                            <label>Last Name</label>
+                                            <input type="text" value="Chen" />
+                                        </div>
+                                    </div>
+
+                                    <label>Email Address</label>
+                                    <input
+                                        type="email"
+                                        value="emily.chen@pawsitivevet.com"
+                                    />
+
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="(555) 123-4567" />
+                                </div>
+                            </div>
+
+                            <a href="#" class="change-photo">Change Photo</a>
+
+                            <div class="save-row">
+                                <button class="save">Save Personal Info</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h2>
+                                <i class="fa-solid fa-hospital"></i> Clinic
+                                Information
+                            </h2>
+
+                            <label>Clinic Name</label>
+                            <input
+                                type="text"
+                                value="Pawsitive Veterinary Care"
+                            />
+
+                            <label>Clinic Address</label>
+                            <input
+                                type="text"
+                                value="123 Wellness Way, Portland, OR 97205"
+                            />
+
+                            <div class="two-inputs">
+                                <div>
+                                    <label>Support Email</label>
+                                    <input
+                                        type="email"
+                                        value="support@pawsitivevet.com"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Emergency Phone</label>
+                                    <input
+                                        type="tel"
+                                        class="urgent"
+                                        value="(555) 911-0000"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="save-row">
+                                <button class="outline">
+                                    Update Clinic Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right column -->
+                    <div class="col-right">
+                        <div class="card notice">
+                            <h3>
+                                <i class="fa-solid fa-user-shield"></i>
+                                Administrator
+                            </h3>
+                            <p>
+                                You have full access to clinic management, staff
+                                scheduling, and billing settings.
+                            </p>
+                        </div>
+
+                        <div class="card">
+                            <h3>Security</h3>
+
+                            <div class="security-row">
+                                <div>
+                                    <p class="s-title">Password</p>
+                                    <p class="s-sub">
+                                        Last changed 3 months ago
+                                    </p>
+                                </div>
+                                <a href="#">Update</a>
+                            </div>
+
+                            <div class="security-row">
+                                <div>
+                                    <p class="s-title">
+                                        Two-Factor Authentication
+                                    </p>
+                                    <p class="s-sub">Secure your account</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked />
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="security-row">
+                                <div>
+                                    <p class="s-title">Active Sessions</p>
+                                    <p class="s-sub">
+                                        Manage logged in devices
+                                    </p>
+                                </div>
+                                <a href="#">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
