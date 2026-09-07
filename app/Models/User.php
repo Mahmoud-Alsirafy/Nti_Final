@@ -27,14 +27,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-
-    ];
-
-    protected $visible = [
-        'id',
-        'name',
-        'email',
-
     ];
 
     protected function casts(): array
@@ -50,13 +42,33 @@ class User extends Authenticatable
         return $this->hasOne(Personal_data::class, 'userId');
     }
 
-    public function pits()
+    public function personal_data()
+    {
+        return $this->personalData();
+    }
+
+    public function pets()
     {
         return $this->hasMany(Pet_info::class, 'ownerId');
+    }
+
+    public function pits()
+    {
+        return $this->pets();
     }
 
     public function images()
     {
         return $this->morphMany(Images::class, 'imageable');
+    }
+
+    public function adoptions()
+    {
+        return $this->hasMany(Adoption::class, 'owner_id');
+    }
+
+    public function adoptionRequests()
+    {
+        return $this->hasMany(Adoption::class, 'adopter_id');
     }
 }

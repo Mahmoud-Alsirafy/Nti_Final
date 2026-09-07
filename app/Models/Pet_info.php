@@ -28,4 +28,9 @@ class Pet_info extends Model
     {
         return $this->morphMany(Images::class, 'imageable');
     }
+
+    public function adoptions()
+    {
+        return $this->hasMany(Adoption::class, 'pet_id');
+    }
 }

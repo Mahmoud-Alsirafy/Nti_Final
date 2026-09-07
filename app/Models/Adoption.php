@@ -19,7 +19,7 @@ class Adoption extends Model
 
     public function pet()
     {
-        return $this->belongsTo(Pet_info::class);
+        return $this->belongsTo(Pet_info::class, 'pet_id');
     }
 
     public function owner()

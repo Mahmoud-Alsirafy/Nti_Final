@@ -20,17 +20,12 @@ class User_dataController extends Controller
      */
     public function index()
     {
-        $info = User::where('id', Auth::id())->with('images')->get();
-        return view('test.user.data', compact('info'));
+        $info = User::where('id', Auth::id())->with('images')->first();
+        return view('settings.account', compact('info'));
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('test.user.add_personal_data');
-    }
-
     /**
      * Store a newly created resource in storage.
      */

@@ -8,8 +8,8 @@ class Images extends Model
 {
     protected $fillable = [
         'filename',
-        'imageableId',
-        'imageableType',
+        'imageable_id',
+        'imageable_type',
     ];
 
     public function imageable()

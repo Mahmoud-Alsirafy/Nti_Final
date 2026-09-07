@@ -24,10 +24,13 @@ class PersonalDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'userId'        => ['required', 'integer', 'exists:users,id'],
+            'userId'        => ['nullable', 'integer', 'exists:users,id'],
             'clinicName'    => ['nullable', 'string', 'max:255'],
             'clinicAddress' => ['nullable', 'string', 'max:255'],
             'clinicNumber'  => ['nullable', 'string', 'min:0', 'max:255'],
+            'name'          => ['nullable', 'string', 'max:255'],
+            'phone'         => ['nullable', 'string', 'max:255'],
+            'image'         => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 }

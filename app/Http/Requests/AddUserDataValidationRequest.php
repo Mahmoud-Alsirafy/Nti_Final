@@ -22,7 +22,7 @@ class AddUserDataValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'min:0', 'max:255'],
         ];
     }

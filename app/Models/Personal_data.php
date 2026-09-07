@@ -18,9 +18,14 @@ class Personal_data extends Model
         'message',
     ];
 
-    public function info()
+    public function user()
     {
         return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function info()
+    {
+        return $this->user();
     }
 
     public function images()
