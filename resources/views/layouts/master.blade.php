@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}">
     @stack('styles')
 </head>
+
 <body class="@yield('body-class', '')">
 
     <!-- Sidebar -->
@@ -20,6 +22,17 @@
     @include('layouts.partials.navbar')
 
     <!-- Main Content -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
+    @if ($errors->has('error'))
+        <div class="alert alert-danger">
+            <p>{{ $errors->first('error') }}</p>
+        </div>
+    @endif
     @yield('content')
 
     <!-- Footer -->
@@ -27,4 +40,5 @@
 
     @stack('scripts')
 </body>
+
 </html>
