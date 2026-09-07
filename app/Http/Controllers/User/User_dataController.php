@@ -58,7 +58,7 @@ class User_dataController extends Controller
             }
             DB::commit();
 
-            return redirect()->route('Profile.index')->with('success', 'Your personal data has been saved');
+            return redirect()->route('User_Profile.index')->with('success', 'Your personal data has been saved');
         } catch (\Throwable $e) {
             DB::rollback();
 
