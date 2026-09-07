@@ -3,109 +3,175 @@
 @section('title', 'Add New Pet')
 
 @section('content')
-<main class="main-content">
-    <div class="page">
+    <main class="main-content">
+        <div class="page">
 
-        <a href="{{ route('pets.index') }}" class="back"><i class="fa-solid fa-caret-left"></i> Back to My Pets</a>
+            <a href="{{ route('Pet.index') }}" class="back"><i class="fa-solid fa-caret-left"></i> Back to My Pets</a>
 
-        <h1>Add New Pet</h1>
+            <h1>Add New Pet</h1>
 
-        <p class="subtitle">
-            Enter the details for your new furry friend to add them to your PetCare profile.
-        </p>
+            <p class="subtitle">
+                Enter the details for your new furry friend to add them to your PetCare profile.
+            </p>
 
-        <form action="{{ route('pets.index') }}" method="GET">
-            <!-- Basic Information -->
-            <div class="card">
+            <form action="{{ route('Pet.store') }}" method="POST">
+                @csrf
+                <!-- Basic Information -->
+                <div class="card">
 
-                <h2><i class="fa-solid fa-circle-exclamation"></i> Basic Information</h2>
+                    <h2><i class="fa-solid fa-circle-exclamation"></i> Basic Information</h2>
 
-                <div class="form-content">
+                    <div class="form-content">
 
-                    <div class="image-section">
+                        <div class="image-section">
 
-                        <label for="petFile" class="pet-image">
-                            <i class="fa-solid fa-image"></i>
-                        </label>
+                            <label for="petFile" class="pet-image">
+                                <i class="fa-solid fa-image"></i>
+                            </label>
 
-                        <input type="file" id="petFile" accept="image/*" hidden>
+                            <input type="file" multiple id="petFile" name="image[]" accept="image/*" hidden>
+
+                        </div>
+                        <button type="button">
+                            Choose File
+                        </button>
 
                     </div>
-                    <button type="button">
-                        Choose File
+
+
+                    <div class="form">
+
+                        <div class="two-inputs">
+                            <div>
+                                <label>Name</label>
+                                <input type="text" name="name" value="{{ old('name') }}">
+                                @error('name')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label>Personality</label>
+                                <input type="text" name="Personality" value="{{ old('Personality') }}">
+                                @error('Personality')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="two-inputs">
+                            <div>
+                                <label>Gender</label>
+                                <select name="gender">
+                                    <option value="">-- Select --</option>
+                                    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                                    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                                </select>
+                                @error('gender')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div>
+                                <label>Status</label>
+                                <select name="status">
+                                    <option value="">-- Select --</option>
+                                    <option value="health" {{ old('status') == 'health' ? 'selected' : '' }}>Health</option>
+                                    <option value="sick" {{ old('status') == 'sick' ? 'selected' : '' }}>Sick</option>
+                                    <option value="unknown" {{ old('status') == 'unknown' ? 'selected' : '' }}>Unknown
+                                    </option>
+                                </select>
+                                @error('status')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="two-inputs">
+                            <div>
+                                <label>Weight</label>
+                                <input type="text" name="whight" value="{{ old('whight') }}">
+                                @error('whight')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label>Type</label>
+                                <input type="text" name="type" value="{{ old('type') }}">
+                                @error('type')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="two-inputs">
+                            <div>
+                                <label>Category</label>
+                                <select name="categore">
+                                    <option value="">-- Select --</option>
+                                    <option value="Dogs" {{ old('categore') == 'Dogs' }}>Dogs</option>
+                                    <option value="Cats" {{ old('categore') == 'Cats' }}>Cats</option>
+                                    <option value="birds" {{ old('categore') == ' birds' }}>Birds</option>
+                                    <option value="other" {{ old('categore') == 'other' }}>Other</option>
+                                </select>
+                                @error('categore')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label>Age</label>
+                                <input type="number" name="age" min="0" max="255"
+                                    value="{{ old('age') }}">
+                                @error('age')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Description</label>
+                            <textarea name="description">{{ old('description') }}</textarea>
+                            @error('description')
+                                <span>{{ $message }}</span>
+                            @enderror
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- Health Information -->
+                <div class="card">
+
+                    <h2><i class="fa-solid fa-briefcase-medical"></i> Health Information</h2>
+
+                    <label>Vaccination information & Medical History</label>
+
+                    <textarea name="health_info"
+                        placeholder="List recent Vaccination, ongoing medications, or specific medical conditions..."></textarea>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="buttons">
+
+                    <a href="{{ route('Pet.index') }}" class="cancel"
+                        style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width:100px; border-radius: 10px;">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="save">
+                        <i class="fa-regular fa-floppy-disk"></i> Save Pet
                     </button>
 
                 </div>
+            </form>
 
-
-                <div class="form">
-
-                    <label>Pet Name</label>
-                    <input type="text" placeholder="e.g. Bella">
-
-
-                    <label>Animal Type</label>
-                    <input type="text" placeholder="e.g. Dog">
-
-
-                    <label>Breed</label>
-                    <input type="text" placeholder="e.g. Golden Retriever">
-
-
-                    <div class="two-inputs">
-
-                        <div>
-                            <label>Date of Birth</label>
-                            <input type="date">
-                        </div>
-
-                        <div>
-                            <label>Gender</label>
-                            <select>
-                                <option>Select gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-
-                    <label>Weight (lbs)</label>
-                    <input type="number" placeholder="e.g. 30">
-
-                </div>
-
-            </div>
-
-
-            <!-- Health Information -->
-            <div class="card">
-
-                <h2><i class="fa-solid fa-briefcase-medical"></i> Health Information</h2>
-
-                <label>Vaccination information & Medical History</label>
-
-                <textarea
-                    placeholder="List recent Vaccination, ongoing medications, or specific medical conditions..."></textarea>
-
-            </div>
-
-
-            <!-- Buttons -->
-            <div class="buttons">
-
-                <a href="{{ route('pets.index') }}" class="cancel" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                    Cancel
-                </a>
-
-                <button type="submit" class="save">
-                    <i class="fa-regular fa-floppy-disk"></i> Save Pet
-                </button>
-
-            </div>
-        </form>
-
-    </div>
-</main>
+        </div>
+    </main>
 @endsection

@@ -18,9 +18,8 @@ class Per_dataController extends Controller
      */
     public function index()
     {
-        $pet_data = Pet_info::where('ownerId', Auth::id())->with('owner', 'images')->get();
-
-        return view('test.pet.show_pet_data', compact('pet_data'));
+        $pet_datas = Pet_info::where('ownerId', Auth::id())->with('owner', 'images')->get();
+        return view('pets.index', compact('pet_datas'));
     }
 
     /**
@@ -28,7 +27,7 @@ class Per_dataController extends Controller
      */
     public function create()
     {
-        return view('test.pet.add_new_pet');
+        return view('pets.create');
     }
 
     /**
@@ -36,6 +35,7 @@ class Per_dataController extends Controller
      */
     public function store(AddPetValidationRequest $request)
     {
+        dd($request);
 
         try {
             DB::beginTransaction();
@@ -51,6 +51,7 @@ class Per_dataController extends Controller
                 'categore'    => $request->categore,
                 'description' => $request->description,
                 'age'         => $request->age,
+                'health_info' => $request->health_info,
             ], fn($value) => !is_null($value));
 
             $pet_data = pet_info::updateOrCreate(
@@ -75,7 +76,8 @@ class Per_dataController extends Controller
             return redirect()->route('Pet.index')->with('success', 'Your personal data has been saved');
         } catch (\Throwable $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            dd($e);
+            // return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
@@ -84,7 +86,9 @@ class Per_dataController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pet_datas = Pet_info::findOrFail($id);
+        $images = $pet_datas->images;
+        // return view('pets.index', compact('pet_datas', 'images'));
     }
 
     /**

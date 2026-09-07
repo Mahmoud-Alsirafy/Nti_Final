@@ -13,7 +13,6 @@ Route::middleware(['auth', CheckRole::class . ':user'])->prefix('User')->group(f
         return "user";
     })->name("UserDashboard");
     Route::resource('User_Profile', User_dataController::class);
-    Route::resource('Pet', Per_dataController::class);
 
     Route::post('/user/qr/regenerate', [User_dataController::class, 'regenerate'])
         ->name('user.qr.regenerate');
@@ -25,10 +24,12 @@ Route::middleware(['auth', CheckRole::class . ':admin'])->prefix('Admin')->group
     })->name("AdminDashboard");
 
     Route::resource('Profile', PersonalDataController::class);
-    Route::resource('Add_pet', Add_petController::class);
     Route::post('/admin/qr/regenerate', [PersonalDataController::class, 'regenerate'])
         ->name('admin.qr.regenerate');
 });
+
+
+Route::resource('Pet', Per_dataController::class);
 
 
 Route::get('/adoptions', [AdoptionController::class, 'index'])->name('adoptions.index');

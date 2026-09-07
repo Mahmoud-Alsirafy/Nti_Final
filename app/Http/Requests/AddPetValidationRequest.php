@@ -23,14 +23,15 @@ class AddPetValidationRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'max:255'],
-            'Personality' => ['nullable', 'string', 'max:500'],
+            'Personality' => ['required', 'string', 'max:500'],
             'gender'      => ['required', 'in:Male,Female'],
-            'whight'      => ['nullable', 'numeric', 'min:0'],
-            'type'        => ['nullable', 'string', 'max:255'],
+            'whight'      => ['required', 'numeric', 'min:0'],
+            'type'        => ['required', 'string', 'max:255'],
             'status'      => ['required', 'in:healthy,sick,unknown'],
             'categore'    => ['required', 'in:Dogs,Cats,Birds,Other'],
-            'description' => ['nullable', 'string'],
-            'age'         => ['nullable', 'integer', 'min:0', 'max:150'],
+            'description' => ['required', 'string'],
+            'health_info' => ['required', 'string'],
+            'age'         => ['required', 'integer', 'min:0', 'max:150'],
         ];
     }
 }

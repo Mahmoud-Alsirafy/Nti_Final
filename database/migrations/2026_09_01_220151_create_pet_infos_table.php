@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('categore', ['Dogs', 'Cats', ' birds', 'other']);
             $table->text('description');
             $table->unsignedTinyInteger('age');
+            $table->string('health_info');
             $table->timestamps();
         });
     }
