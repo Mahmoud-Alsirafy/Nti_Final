@@ -51,12 +51,21 @@
             <span>Settings</span>
         </a>
 
-        <a href="#" class="menu-item">
-            <span class="menu-icon">
-                <i class="fa-solid fa-qrcode"></i>
-            </span>
-            <span>Regenerate QR Code</span>
-        </a>
+        @if (Auth::user()->type === 'user')
+            <a href="{{ route('user.qr.regenerate') }}" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-qrcode"></i>
+                </span>
+                <span>Regenerate QR Code</span>
+            </a>
+        @else
+            <a href="{{ route('admin.qr.regenerate') }}" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-qrcode"></i>
+                </span>
+                <span>Regenerate QR Code</span>
+            </a>
+        @endif
 
     </nav>
 
