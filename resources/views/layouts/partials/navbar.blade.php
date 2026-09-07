@@ -23,7 +23,11 @@
             </div>
             <div class="profile-info">
                 <strong>{{ Auth::user()->name }}</strong>
-                <span>Pet Owner</span>
+                @if (Auth::user()->type === 'user')
+                    <span>Pet Owner</span>
+                @else
+                    <span>Doctor</span>
+                @endif
             </div>
             <span class="profile-arrow"></span>
         </a>
