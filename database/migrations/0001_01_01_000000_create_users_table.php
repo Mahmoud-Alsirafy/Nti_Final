@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->enum('type', ['user', 'admin'])->default('user');
             $table->string('qr_code')->unique();
             $table->rememberToken();
