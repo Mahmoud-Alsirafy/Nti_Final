@@ -71,10 +71,18 @@ class PersonalDataController extends Controller
 
             // 3. Handle File Uploads
             if ($request->hasFile('image')) {
-                if ($user->images()->exists()) {
-                    $this->deleteFile($user->id, 'user');
+                // If clinic fields were present, attach to personalData; otherwise attach to user profile
+                if ($request->filled('clinicName') || $request->filled('clinicAddress') || $request->filled('clinicNumber')) {
+                    if ($personalData->images()->exists()) {
+                        $this->deleteFile($personalData->id, 'personal');
+                    }
+                    $this->uploadFile($request->file('image'), $personalData, 'personal');
+                } else {
+                    if ($user->images()->exists()) {
+                        $this->deleteFile($user->id, 'user');
+                    }
+                    $this->uploadFile($request->file('image'), $user, 'user');
                 }
-                $this->uploadFile($request->file('image'), $user, 'user');
             }
 
             DB::commit();
