@@ -1,0 +1,2147 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #faf9f6;
+}
+
+
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.signup-card {
+    width: 292px;
+    min-height: 595px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 7px;
+
+    padding: 20px 21px 18px;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    width: 43px;
+    height: 43px;
+
+    margin: 0 auto 9px;
+
+    border-radius: 50%;
+
+    background-color: #4caf50;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo i {
+    font-size: 24px;
+    color: white;
+}
+
+
+/* =========================
+   LOGIN TITLE
+========================= */
+
+.signup-card h1 {
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 27px;
+    line-height: 32px;
+
+    font-weight: 600;
+
+    color: #006e1c;
+}
+
+.subtitle {
+    margin: 1px 0 22px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    color: #3f4a3c;
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+.tabs {
+    height: 36px;
+
+    display: flex;
+
+    border-bottom: 1px solid #e3e2e0;
+
+    margin-bottom: 22px;
+}
+
+.tab {
+    width: 50%;
+    height: 36px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #3f4a3c;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab.active {
+    color: #006e1c;
+
+    font-weight: 600;
+
+    border-bottom: 2px solid #4caf50;
+}
+
+
+/* =========================
+   ROLE TITLE
+========================= */
+
+.role-title {
+    margin: 0 0 8px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    color: #1a1c1a;
+}
+
+
+/* =========================
+   ROLES
+========================= */
+
+.roles {
+    width: 100%;
+
+    display: flex;
+
+    gap: 9px;
+
+    margin-bottom: 18px;
+}
+
+.roles input {
+    display: none;
+}
+
+.role-card {
+    width: 50%;
+    height: 62px;
+
+    border: 1px solid #d7ddd4;
+
+    border-radius: 5px;
+
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* =========================
+   FONT AWESOME
+========================= */
+
+.paw-icon,
+.clinic-icon {
+    font-size: 19px;
+
+    margin-bottom: 5px;
+
+    color: #006e1c;
+}
+
+
+/* =========================
+   ROLE TEXT
+========================= */
+
+.role-card span {
+    font-size: 9px;
+
+    font-weight: 600;
+
+    color: #1a1c1a;
+}
+
+
+/* =========================
+   SELECTED ROLE
+========================= */
+
+.roles input:checked + .role-card {
+    border-color: #4caf50;
+
+    background-color: #f7fbf6;
+
+    box-shadow: 0 0 7px rgba(76, 175, 80, 0.16);
+}
+
+
+/* =========================
+   INPUT LABELS
+========================= */
+
+.input-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    color: #1a1c1a;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.input {
+    width: 100%;
+    height: 34px;
+
+    padding: 0 10px;
+
+    margin-bottom: 14px;
+
+    border: 1px solid #d5ddd2;
+
+    border-radius: 5px;
+
+    outline: none;
+
+    background-color: #ffffff;
+
+    font-size: 10px;
+
+    color: #1a1c1a;
+}
+
+.input::placeholder {
+    color: #8b9787;
+}
+
+.input:focus {
+    border-color: #4caf50;
+
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.08);
+}
+
+
+/* =========================
+   SIGN UP BUTTON
+========================= */
+
+.signup-button {
+    width: 100%;
+    height: 34px;
+
+    margin-top: 1px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background-color: #4caf50;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.signup-button span {
+    margin-left: 4px;
+
+    font-size: 12px;
+}
+
+.signup-button:hover {
+    background-color: #006e1c;
+}
+
+.signup-button:active {
+    transform: scale(0.99);
+}
+
+
+/* =========================
+   TERMS
+========================= */
+
+.terms {
+    margin: 13px 5px 0;
+
+    text-align: center;
+
+    font-size: 7px;
+
+    line-height: 11px;
+
+    color: #3f4a3c;
+}
+
+.terms span {
+    color: #006e1c;
+
+    font-weight: 600;
+}
+
+
+
+
+
+
+/*  ========== adoption ===================*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Work Sans", sans-serif;
+    background-color: #faf9f6;
+    color: #1a1c1a;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    margin-left: 220px;
+    min-height: 100vh;
+}
+
+
+
+/* ======================== CONTENT  ========================= */
+
+.content {
+    width: 80%;              
+    max-width: 1100px;
+
+    margin:auto;
+    padding-top: 40px;
+    padding-bottom: 35px;
+    padding-left: 30px;
+}
+
+
+/* ==========  TITLE ===================== */
+
+
+
+
+.title h1 {
+    font-family: "Manrope", sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    text-align: center;
+
+
+    color: #000000;
+
+    margin-bottom: 10px;
+}
+
+
+.title p {
+    font-family: "Work Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 15px;
+    line-height: 1.5;
+
+    color: #3f4a3c;
+}
+
+
+/* =========================
+   PAWS
+========================= */
+
+.paws {
+    margin-bottom: 10px;
+}
+
+.paws i {
+    color: #006e1c;
+    font-size: 18px;
+
+    margin: 0 4px;
+}
+ 
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories {
+    display: flex;
+    justify-content: center;
+
+    gap: 12px;                 /* المسافة بين الأزرار */
+
+    margin-bottom: 25px;
+}
+
+
+
+.category {
+    padding: 10px 22px;
+
+    border: 1px solid #becab9;
+    border-radius: 30px;
+
+    background-color: #ffffff;
+    color: #3f4a3c;
+
+    font-family: "Work Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+
+/* الأيقونة داخل الزر */
+.category i {
+    margin-right: 6px;
+}
+
+
+/* الزرار المختار */
+.category.active {
+    background-color: #006e1c;
+    color: #ffffff;
+
+    border-color: #006e1c;
+}
+
+
+/* =========================
+   PETS GRID
+========================= */
+
+.pets {
+    width: 90%;               
+    max-width: 1050px;
+
+    margin : auto;
+
+    display: grid;
+
+    /* 3 كروت جنب بعض */
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;               
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    background-color: #ffffff;
+
+    border: 1px solid #becab9;
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(26, 28, 26, 0.06);
+
+  
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.badge {
+    display: inline-block;
+
+    margin: 5px 5px 0;
+    padding: 5px 10px;
+
+    background-color: #ff9800;
+    color: #ffffff;
+
+    border-radius: 15px;
+
+    font-family: "Work Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 8px 20px rgba(26, 28, 26, 0.12);
+}
+
+
+/* =========================
+   CARD IMAGE
+========================= */
+
+.image {
+    width: 100%;
+    height: 190px;             
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #efeeeb;
+
+    overflow: hidden;
+}
+
+
+
+.image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+
+/* =========================
+   CARD INFO
+========================= */
+
+.info {
+    padding: 15px;             /* المسافة الداخلية للكارد */
+}
+
+
+
+.info h2 {
+    display: inline-block;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #1a1c1a;
+
+    margin-bottom: 10px;
+}
+
+
+
+.info p {
+    margin-bottom: 7px;
+
+    font-family: "Work Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+
+    color: #3f4a3c;
+}
+
+
+
+.info p i {
+    width: 18px;
+    color: #006e1c;
+}
+
+
+/* =========================
+   VIEW DETAILS BUTTON
+========================= */
+
+.details {
+    margin-top: 8px;
+
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 25px;
+
+    background-color: #006e1c;
+    color: #ffffff;
+
+    font-family: "Work Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* السهم */
+.details i {
+    margin-left: 6px;
+}
+
+
+
+.details:hover {
+    background-color: #005313;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    
+    .sidebar {
+        display: none;
+    }
+
+    main {
+        margin-left: 0;
+    }
+
+    .content {
+        width: 92%;
+    }
+
+    .pets {
+        grid-template-columns: 1fr;
+    }
+
+    .title h1 {
+        font-size: 28px;
+    }
+
+    .categories {
+        flex-wrap: wrap;
+    }
+}
+
+/* ================= OWNER PAGE ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Work Sans", sans-serif;
+
+    background: #f8f8f5;
+
+    color: #222;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.page {
+    width: 88%;
+
+    max-width: 1080px;
+
+    margin: 28px auto 45px;
+}
+
+
+/* =========================================
+   PET CARD
+========================================= */
+
+.pet-card {
+    position: relative;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeeea;
+
+    border-radius: 20px;
+
+    padding: 38px 30px 27px;
+
+    min-height: 265px;
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================
+   PET INFORMATION
+========================================= */
+
+.pet-main-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 27px;
+}
+
+
+.pet-image {
+    width: 160px;
+
+    height: 160px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 4px solid #f1f1ed;
+
+    flex-shrink: 0;
+}
+
+
+.pet-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.pet-name {
+    align-self: flex-start;
+
+    padding-top: 5px;
+}
+
+
+.pet-name h1 {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 42px;
+
+    line-height: 1;
+
+    color: #111;
+
+    margin-bottom: 10px;
+}
+
+
+.pet-name p {
+    font-size: 17px;
+
+    color: #5e5e59;
+}
+
+
+.pet-name p span {
+    padding: 0 4px;
+}
+
+
+/* =========================================
+   EDIT BUTTON
+========================================= */
+
+.edit-btn {
+    position: absolute;
+
+    top: 62px;
+
+    right: 30px;
+
+    width: 145px;
+
+    height: 45px;
+
+    background: #ff9900;
+
+    color: #222;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.edit-btn:hover {
+    background: #e98b00;
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats {
+    position: absolute;
+
+    right: 30px;
+
+    bottom: 27px;
+
+    width: calc(100% - 220px);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 14px;
+}
+
+
+.stat-box {
+    height: 98px;
+
+    background: #f4f4f2;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.stat-box i {
+    color: #16752b;
+
+    font-size: 18px;
+
+    margin-bottom: 6px;
+}
+
+
+.stat-box span {
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.8px;
+
+    color: #555;
+}
+
+
+.stat-box strong {
+    font-size: 21px;
+
+    font-weight: 500;
+
+    margin-top: 5px;
+}
+
+
+.stat-box .healthy {
+    color: #238331;
+}
+
+
+/* =========================================
+   TABS
+========================================= */
+
+.tabs {
+    height: 60px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 32px;
+
+    border-bottom: 1px solid #ddd;
+
+    padding-left: 5px;
+}
+
+
+.tab {
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    color: #4f4f4a;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    transition: 0.2s;
+}
+
+
+.tab:hover {
+    color: #17752b;
+}
+
+
+.tab.active {
+    color: #17752b;
+
+    font-weight: 600;
+}
+
+
+.tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    height: 2px;
+
+    background: #17752b;
+}
+
+
+/* =========================================
+   CONTENT GRID
+========================================= */
+
+.content-grid {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+
+    gap: 25px;
+
+    margin-top: 27px;
+}
+
+
+/* =========================================
+   MEDICAL CARD
+========================================= */
+
+.medical-card {
+    background: #ffffff;
+
+    border: 1px solid #eeeeea;
+
+    border-radius: 16px;
+
+    padding: 25px 23px;
+
+    min-height: 275px;
+
+    box-shadow:
+        0 2px 9px rgba(0, 0, 0, 0.035);
+}
+
+
+.card-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+
+.card-title h2 {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 21px;
+
+    font-weight: 600;
+}
+
+
+.card-title a {
+    color: #17752b;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.card-title a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   ACTIVITY
+========================================= */
+
+.activity {
+    display: grid;
+
+    grid-template-columns:
+        48px 1fr 90px;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-height: 92px;
+
+    border-bottom: 1px solid #eee;
+
+    padding: 10px 0;
+}
+
+
+.activity:last-child {
+    border-bottom: none;
+}
+
+
+.activity-icon {
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 17px;
+}
+
+
+.activity-icon.allergy {
+    background: #fff0f0;
+
+    color: #c42b2b;
+}
+
+
+.activity-icon.vaccine {
+    background: #e3f5e5;
+
+    color: #287d34;
+}
+
+
+.activity-text h3 {
+    font-size: 14px;
+
+    margin-bottom: 6px;
+}
+
+
+.activity-text p {
+    color: #666;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+    max-width: 430px;
+}
+
+
+/* =========================================
+   ACTIVITY DATE
+========================================= */
+
+.activity-date {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #333;
+}
+
+
+.activity-date small {
+    margin-top: 5px;
+
+    background: #f0f0ec;
+
+    color: #666;
+
+    padding: 5px 8px;
+
+    border-radius: 4px;
+
+    font-size: 9px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================
+   RIGHT COLUMN
+========================================= */
+
+.right-column {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+
+/* =========================================
+   SCHEDULE CARD
+========================================= */
+
+.schedule-card {
+    background: #ffffff;
+
+    border: 1px solid #eeeeea;
+
+    border-radius: 16px;
+
+    padding: 25px 22px;
+
+    box-shadow:
+        0 2px 9px rgba(0, 0, 0, 0.035);
+}
+
+
+.schedule-card h2,
+.quick-card h2 {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 20px;
+
+    margin-bottom: 21px;
+}
+
+
+.schedule-item {
+    display: grid;
+
+    grid-template-columns: 12px 1fr;
+
+    gap: 11px;
+
+    text-decoration: none;
+
+    color: #222;
+
+    min-height: 82px;
+}
+
+
+.schedule-line {
+    width: 2px;
+
+    height: 100%;
+
+    background: #ddd;
+
+    position: relative;
+}
+
+
+.dot {
+    position: absolute;
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    left: -3px;
+
+    top: 2px;
+}
+
+
+.dot.orange {
+    background: #f2a000;
+}
+
+
+.dot.gray {
+    background: #ddd;
+}
+
+
+.schedule-content strong {
+    color: #ed9800;
+
+    font-size: 10px;
+}
+
+
+.schedule-content strong.nov {
+    color: #444;
+}
+
+
+.schedule-content h3 {
+    font-size: 14px;
+
+    font-weight: 500;
+
+    margin: 6px 0;
+}
+
+
+.schedule-content p {
+    color: #666;
+
+    font-size: 12px;
+}
+
+
+.schedule-content p i {
+    font-size: 11px;
+
+    margin-right: 5px;
+}
+
+
+.schedule-item:hover h3 {
+    color: #17752b;
+}
+
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
+.quick-card {
+    background: #f3f3f1;
+
+    border: 1px solid #e7e7e2;
+
+    border-radius: 16px;
+
+    padding: 24px 22px;
+}
+
+
+.quick-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+}
+
+
+.quick-btn {
+    height: 78px;
+
+    background: #ffffff;
+
+    border: 1px solid #d9d9d4;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+
+    text-decoration: none;
+
+    color: #222;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+}
+
+
+.quick-btn i {
+    color: #17752b;
+
+    font-size: 17px;
+}
+
+
+.quick-btn:hover {
+    border-color: #17752b;
+
+    background: #f5fbf3;
+}
+
+
+/* =========================================
+   SMART NUTRITION
+========================================= */
+
+.nutrition {
+    margin-top: 27px;
+
+    min-height: 190px;
+
+    background: #e2f4dc;
+
+    border: 1px solid #c6e4be;
+
+    border-radius: 16px;
+
+    padding: 24px 23px;
+}
+
+
+.nutrition h2 {
+    font-family: "Manrope", sans-serif;
+
+    font-size: 21px;
+
+    margin-bottom: 14px;
+}
+
+
+.nutrition p {
+    max-width: 730px;
+
+    color: #4f5d4e;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+.food-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 18px;
+
+    min-width: 190px;
+
+    height: 42px;
+
+    background: #087b27;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.food-btn:hover {
+    background: #05651f;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .page {
+        width: 92%;
+    }
+
+
+    .pet-card {
+        padding: 30px 25px;
+    }
+
+
+    .pet-main-info {
+        padding-right: 160px;
+    }
+
+
+    .stats {
+        position: static;
+
+        width: 100%;
+
+        margin-top: 25px;
+    }
+
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .page {
+        width: 94%;
+
+        margin-top: 15px;
+    }
+
+
+    .pet-main-info {
+        padding-right: 0;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .pet-image {
+        width: 125px;
+
+        height: 125px;
+    }
+
+
+    .pet-name h1 {
+        font-size: 35px;
+    }
+
+
+    .edit-btn {
+        position: static;
+
+        width: 100%;
+
+        margin-top: 20px;
+    }
+
+
+    .stats {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .tabs {
+        overflow-x: auto;
+
+        gap: 22px;
+    }
+
+
+    .activity {
+        grid-template-columns:
+            45px 1fr;
+    }
+
+
+    .activity-date {
+        grid-column: 2;
+
+        align-items: flex-start;
+    }
+
+}
+
+ /* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-page {
+    margin: 0;
+    background-color: #faf9f6;
+    color: #1a1c1a;
+    font-family: "Work Sans", sans-serif;
+}
+
+
+
+.dashboard-main {
+    width: calc(100% - 220px);
+    margin-left: 220px;
+
+    max-width: 1050px;
+
+    padding: 30px 25px 40px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+.dashboard-header h1 {
+    margin: 0 0 5px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.dashboard-header p {
+    margin: 0;
+
+    font-size: 11px;
+    color: #3f4a3c;
+}
+
+
+.dashboard-header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+
+.dashboard-header-buttons button {
+    padding: 8px 12px;
+
+    border-radius: 6px;
+
+    font-family: "Work Sans", sans-serif;
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+
+.dashboard-add-btn {
+    background-color: white;
+    border: 1px solid #becab9;
+    color: #006e1c;
+}
+
+
+.dashboard-book-btn {
+    background-color: #006e1c;
+    border: 1px solid #006e1c;
+    color: white;
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+.dashboard-stat-card {
+    position: relative;
+
+    background-color: white;
+
+    border: 1px solid #e3e2e0;
+    border-radius: 10px;
+
+    padding: 14px;
+
+    min-height: 105px;
+}
+
+
+.dashboard-stat-icon {
+    width: 29px;
+    height: 29px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 9px;
+
+    font-size: 11px;
+}
+
+
+.dashboard-stat-icon.green {
+    background-color: #e4f5e2;
+    color: #006e1c;
+}
+
+
+.dashboard-stat-icon.orange {
+    background-color: #fff0d9;
+    color: #ff9800;
+}
+
+
+.dashboard-stat-card p {
+    margin: 0 0 2px;
+
+    font-size: 8px;
+    color: #3f4a3c;
+}
+
+
+.dashboard-stat-card h2 {
+    margin: 0;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 27px;
+}
+
+
+.dashboard-growth,
+.dashboard-today {
+    position: absolute;
+
+    right: 13px;
+    top: 16px;
+
+    font-size: 7px;
+}
+
+
+.dashboard-growth {
+    color: #006e1c;
+}
+
+
+.dashboard-today {
+    color: #3f4a3c;
+}
+
+
+/* =========================
+   PATIENTS + REMINDERS
+========================= */
+
+.dashboard-content-row {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.dashboard-title-row {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+
+.dashboard-title-row h2 {
+    margin: 0;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+}
+
+
+.dashboard-title-row button {
+    border: none;
+    background: none;
+
+    color: #006e1c;
+
+    font-size: 8px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   PATIENT CARDS
+========================= */
+
+.dashboard-patient-cards {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+
+.dashboard-patient-card {
+    background-color: white;
+
+    border: 1px solid #e3e2e0;
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+
+.dashboard-patient-image {
+    height: 210px;
+    position: relative;
+}
+
+.dashboard-patient-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.dashboard-healthy,
+.dashboard-checkup {
+    position: absolute;
+
+    right: 7px;
+    top: 7px;
+
+    padding: 4px 7px;
+
+    border-radius: 8px;
+
+    background-color: white;
+
+    font-size: 7px;
+}
+
+
+.dashboard-healthy {
+    color: #006e1c;
+}
+
+
+.dashboard-checkup {
+    color: #ba1a1a;
+}
+
+
+.dashboard-healthy i,
+.dashboard-checkup i {
+    margin-right: 3px;
+}
+
+
+.dashboard-patient-info {
+    padding: 9px;
+}
+
+
+.dashboard-patient-name {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 7px;
+}
+
+
+.dashboard-patient-name h3 {
+    margin: 0;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 13px;
+}
+
+
+.dashboard-patient-name span {
+    background-color: #efeeeb;
+
+    padding: 3px 7px;
+
+    border-radius: 4px;
+
+    font-size: 7px;
+}
+
+
+.dashboard-patient-details {
+    display: flex;
+
+    gap: 12px;
+}
+
+
+.dashboard-patient-details p {
+    margin: 0;
+
+    font-size: 7px;
+    color: #3f4a3c;
+}
+
+
+.dashboard-patient-details i {
+    color: #006e1c;
+    margin-right: 3px;
+}
+
+
+/* =========================
+   REMINDERS
+========================= */
+
+.dashboard-reminders {
+    background-color: white;
+
+    border: 1px solid #e3e2e0;
+    border-radius: 10px;
+
+    padding: 14px;
+}
+
+
+.dashboard-reminders h2 {
+    margin: 0 0 15px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+}
+
+
+.dashboard-reminders h2 i {
+    color: #ff9800;
+    margin-right: 5px;
+}
+
+
+.dashboard-reminder {
+    display: flex;
+
+    gap: 9px;
+
+    margin-bottom: 17px;
+}
+
+
+.dashboard-reminder-icon {
+    width: 28px;
+    height: 28px;
+
+    min-width: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 10px;
+}
+
+
+.dashboard-reminder-icon.orange {
+    background-color: #fff0d9;
+    color: #ff9800;
+}
+
+
+.dashboard-reminder-icon.green {
+    background-color: #e4f5e2;
+    color: #006e1c;
+}
+
+
+.dashboard-reminder h3 {
+    margin: 0 0 3px;
+
+    font-size: 8px;
+}
+
+
+.dashboard-reminder p {
+    margin: 0 0 4px;
+
+    font-size: 7px;
+    color: #3f4a3c;
+}
+
+
+.dashboard-reminder small {
+    font-size: 6px;
+    color: #006e1c;
+}
+
+
+/* =========================
+   TODAY'S SCHEDULE
+========================= */
+
+.dashboard-schedule {
+    background-color: white;
+
+    border: 1px solid #e3e2e0;
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.dashboard-schedule h2 {
+    margin: 0;
+
+    padding: 14px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+}
+
+
+.dashboard-table-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1.2fr 1.5fr 1fr;
+
+    align-items: center;
+
+    padding: 11px 14px;
+
+    border-top: 1px solid #efeeeb;
+
+    font-size: 8px;
+}
+
+
+.dashboard-table-head {
+    background-color: #faf9f6;
+
+    border-top: none;
+
+    font-size: 7px;
+    font-weight: 600;
+
+    color: #6f7a6b;
+}
+
+
+.dashboard-table-row span i {
+    color: #006e1c;
+    margin-right: 5px;
+}
+
+
+/* =========================
+   STATUS BUTTONS
+========================= */
+
+.dashboard-status {
+    width: fit-content;
+
+    border: none;
+
+    padding: 4px 7px;
+
+    border-radius: 4px;
+
+    font-size: 6px;
+
+    cursor: pointer;
+}
+
+
+.dashboard-status.checked {
+    background-color: #e4f5e2;
+    color: #006e1c;
+}
+
+
+.dashboard-status.waiting {
+    background-color: #efeeeb;
+    color: #3f4a3c;
+}
+
+
+.dashboard-status.scheduled {
+    background-color: #eaf2ff;
+    color: #315b9a;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-main {
+        width: calc(100% - 180px);
+        margin-left: 180px;
+    }
+
+    .dashboard-content-row {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .dashboard-main {
+        width: 92%;
+        margin: 20px auto;
+        padding: 0;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .dashboard-patient-cards {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .dashboard-table-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+}
