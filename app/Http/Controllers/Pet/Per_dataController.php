@@ -33,9 +33,9 @@ class Per_dataController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AddPetValidationRequest $request)
+    public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
 
         try {
             DB::beginTransaction();

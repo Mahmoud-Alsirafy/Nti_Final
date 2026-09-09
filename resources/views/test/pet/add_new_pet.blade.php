@@ -1,6 +1,7 @@
 @if ($errors->has('error'))
     <p>{{ $errors->first('error') }}</p>
 @endif
+
 <form method="POST" action="{{ route('Pet.store') }}" enctype="multipart/form-data">
     @csrf
 
@@ -65,10 +66,10 @@
         <label>Category</label>
         <select name="categore">
             <option value="">-- Select --</option>
-            <option value="Dogs" {{ old('categore') == 'Dogs' ? 'selected' : '' }}>Dogs</option>
-            <option value="Cats" {{ old('categore') == 'Cats' ? 'selected' : '' }}>Cats</option>
-            <option value="birds" {{ old('categore') == ' birds' ? 'selected' : '' }}>Birds</option>
-            <option value="other" {{ old('categore') == 'other' ? 'selected' : '' }}>Other</option>
+            <option value="Dogs" {{ old('categore') == 'Dogs' }}>Dogs</option>
+            <option value="Cats" {{ old('categore') == 'Cats' }}>Cats</option>
+            <option value="birds" {{ old('categore') == ' birds' }}>Birds</option>
+            <option value="other" {{ old('categore') == 'other' }}>Other</option>
         </select>
         @error('categore')
             <span>{{ $message }}</span>
@@ -92,7 +93,7 @@
     </div>
 
     <div>
-        <label>image</label>
+        <label>images</label>
         <input type="file" multiple name="image[]" value="{{ old('image') }}">
         @error('image')
             <span>{{ $message }}</span>

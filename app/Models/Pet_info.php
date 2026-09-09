@@ -17,6 +17,7 @@ class Pet_info extends Model
         'categore',
         'description',
         'age',
+        'health_info',
     ];
 
     public function owner()

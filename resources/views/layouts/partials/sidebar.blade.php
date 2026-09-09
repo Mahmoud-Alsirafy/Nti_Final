@@ -22,14 +22,14 @@
             <span>Dashboard</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a href="{{ route('Pet.index') }}" class="menu-item">
             <span class="menu-icon">
                 <i class="fa-solid fa-paw"></i>
             </span>
             <span>My Pets</span>
         </a>
 
-        <a href="#" class="menu-item">
+        <a href="{{ route('adoptions.index') }}" class="menu-item">
             <span class="menu-icon">
                 <i class="fa-solid fa-shield-cat"></i>
             </span>
@@ -71,7 +71,7 @@
 
     <!-- Add Pet -->
     <div class="sidebar-bottom">
-        <a href="#" class="add-pet-btn">
+        <a href="{{ route('Pet.create') }}" class="add-pet-btn">
             <span>+</span>
             Add New Pet
         </a>

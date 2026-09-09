@@ -11,8 +11,8 @@ class AdoptionController extends Controller
 {
     public function index()
     {
-        return $adoptions = Adoption::with('pet', 'owner')->get();
-        // return view('adoptions.index', compact('adoptions'));
+        $adoptions = Adoption::with('pet', 'owner')->get();
+        return view('adoption.show', compact('adoptions'));
     }
 
     public function new_adoption(Request $request)

@@ -17,11 +17,11 @@ namespace App\Models{
  * @property int $pet_id
  * @property int $owner_id
  * @property string|null $status
- * @property int|null $adopter_id
+ * @property int $adopter_id
  * @property string|null $why
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $adopter
+ * @property-read \App\Models\User $adopter
  * @property-read \App\Models\User $owner
  * @property-read \App\Models\Pet_info $pet
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Adoption newModelQuery()
@@ -72,7 +72,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Images> $images
  * @property-read int|null $images_count
- * @property-read \App\Models\User $info
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Personal_data newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Personal_data newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Personal_data query()
@@ -100,8 +100,11 @@ namespace App\Models{
  * @property string $categore
  * @property string $description
  * @property int $age
+ * @property string $health_info
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Adoption> $adoptions
+ * @property-read int|null $adoptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Images> $images
  * @property-read int|null $images_count
  * @property-read \App\Models\User $owner
@@ -113,6 +116,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereHealthInfo($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Pet_info whereOwnerId($value)
@@ -132,16 +136,23 @@ namespace App\Models{
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
- * @property string $phone
+ * @property string|null $phone
  * @property string $type
+ * @property string $qr_code
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Adoption> $adoptionRequests
+ * @property-read int|null $adoption_requests_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Adoption> $adoptions
+ * @property-read int|null $adoptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Images> $images
  * @property-read int|null $images_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
  * @property-read \App\Models\Personal_data|null $personalData
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Pet_info> $pits
- * @property-read int|null $pits_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Pet_info> $pets
+ * @property-read int|null $pets_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -153,6 +164,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereQrCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)

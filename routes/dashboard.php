@@ -14,7 +14,7 @@ Route::middleware(['auth', CheckRole::class . ':user'])->prefix('User')->group(f
     })->name("UserDashboard");
     Route::resource('User_Profile', User_dataController::class);
 
-    Route::post('/user/qr/regenerate', [User_dataController::class, 'regenerate'])
+    Route::get('/user/qr/regenerate', [User_dataController::class, 'regenerate'])
         ->name('user.qr.regenerate');
 });
 
@@ -24,16 +24,19 @@ Route::middleware(['auth', CheckRole::class . ':admin'])->prefix('Admin')->group
     })->name("AdminDashboard");
 
     Route::resource('Profile', PersonalDataController::class);
-    Route::post('/admin/qr/regenerate', [PersonalDataController::class, 'regenerate'])
+    Route::get('/admin/qr/regenerate', [PersonalDataController::class, 'regenerate'])
         ->name('admin.qr.regenerate');
 });
 
 
-Route::resource('Pet', Per_dataController::class);
+Route::middleware('auth')->group(function () {
+
+    Route::resource('Pet', Per_dataController::class);
 
 
-Route::get('/adoptions', [AdoptionController::class, 'index'])->name('adoptions.index');
-Route::post('/new_adoption', [AdoptionController::class, 'new_adoption'])->name('new_adoption');
+    Route::get('/adoptions', [AdoptionController::class, 'index'])->name('adoptions.index');
+    Route::post('/new_adoption', [AdoptionController::class, 'new_adoption'])->name('new_adoption');
+});
 
 
 // Route::get('/', function () {
