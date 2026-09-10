@@ -18,7 +18,7 @@ class Per_dataController extends Controller
      */
     public function index()
     {
-        return $pet_datas = Pet_info::where('ownerId', Auth::id())->with('owner', 'images')->get();
+        $pet_datas = Pet_info::where('ownerId', Auth::id())->with('owner', 'images')->get();
         return view('pets.index', compact('pet_datas'));
     }
 
@@ -76,8 +76,8 @@ class Per_dataController extends Controller
             return redirect()->route('Pet.index')->with('success', 'Your personal data has been saved');
         } catch (\Throwable $e) {
             DB::rollback();
-            dd($e);
-            // return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            // dd($e);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
@@ -88,7 +88,7 @@ class Per_dataController extends Controller
     {
         $pet_datas = Pet_info::findOrFail($id);
         $images = $pet_datas->images;
-        // return view('pets.index', compact('pet_datas', 'images'));
+        return view('pets.show', compact('pet_datas', 'images'));
     }
 
     /**

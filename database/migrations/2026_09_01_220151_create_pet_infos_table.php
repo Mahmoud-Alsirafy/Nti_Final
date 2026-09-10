@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('whight');
             $table->string('type');
             $table->enum('status', ['health', 'sick', 'unknown']);
-            $table->enum('categore', ['Dogs', 'Cats', ' birds', 'other']);
+            $table->enum('categore', ['Dogs', 'Cats', 'birds', 'other']);
             $table->text('description');
             $table->unsignedTinyInteger('age');
             $table->string('health_info');
