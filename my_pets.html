@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pet Profiles</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+
+<body class="my-pets-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-paw"></i>
+            </div>
+            <div>
+                <h2>PetCare</h2>
+                <span>Pet Management</span>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <nav class="sidebar-menu">
+
+            <a href="#" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-regular fa-chart-bar"></i>
+                </span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="my_pets.html" class="menu-item active">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-paw"></i>
+                </span>
+                <span>My Pets</span>
+            </a>
+
+            <a href="adoption_details.html" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </span>
+                <span>Adoption</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-user"></i>
+                </span>
+                <span>Profile</span>
+            </a>
+
+            <a href="account-settings.html" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-gears"></i>
+                </span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-qrcode"></i>
+                </span>
+                <span>Regenerate QR Code</span>
+            </a>
+
+        </nav>
+
+        <!-- Add Pet -->
+        <div class="sidebar-bottom">
+            <a href="add_pet.html" class="add-pet-btn">
+                <span>+</span>
+                Add New Pet
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="search-box">
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="navbar-right">
+            <button class="nav-icon" aria-label="Notifications">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notification-dot"></span>
+            </button>
+            <button class="nav-icon" aria-label="Messages">
+                <i class="fa-regular fa-comment-dots"></i>
+            </button>
+            <a href="account-settings.html" class="nav-profile">
+                <div class="profile-avatar">S</div>
+                <div class="profile-info">
+                    <strong>Salma</strong>
+                    <span>Pet Owner</span>
+                </div>
+                <span class="profile-arrow">⌄</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+    <div class="my-pets-container">
+        <p class="page-title">
+            Manage and view profiles for your furry companions.
+        </p>
+
+        <div class="grid">
+
+        <!-- Bella -->
+        <div class="card">
+
+            <div class="card-photo">
+                <img
+                    src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=500&q=80"
+                    alt="Bella - Golden Retriever">
+
+                <span class="status-badge">
+                    <span class="status-dot green"></span>
+                    Healthy
+                </span>
+            </div>
+
+            <div class="card-body">
+
+                <div class="card-head">
+
+                    <div>
+                        <h1 class="pet-name">Bella</h1>
+
+                        <p class="pet-breed">
+                            <i class="fa-solid fa-paw"></i>
+                            Golden Retriever
+                        </p>
+                    </div>
+
+                    <button class="menu-btn" aria-label="More options">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <span class="stat-icon">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </span>
+
+                        <p class="stat-label">Age</p>
+                        <p class="stat-value">3 Years</p>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <span class="stat-icon">
+                            <i class="fa-solid fa-weight-scale"></i>
+                        </span>
+
+                        <p class="stat-label">Weight</p>
+                        <p class="stat-value">65 lbs</p>
+
+                    </div>
+
+                </div>
+
+                <button class="view-btn">
+                    <i class="fa-solid fa-eye"></i>
+                    View Profile
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- Luna -->
+        <div class="card">
+
+            <div class="card-photo">
+                <img
+                    src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=500&q=80"
+                    alt="Luna - Bombay Cat">
+
+                <span class="status-badge">
+                    <span class="status-dot amber"></span>
+                    Vaccine Due
+                </span>
+            </div>
+
+            <div class="card-body">
+
+                <div class="card-head">
+
+                    <div>
+                        <h1 class="pet-name">Luna</h1>
+
+                        <p class="pet-breed">
+                            <i class="fa-solid fa-paw"></i>
+                            Bombay
+                        </p>
+                    </div>
+
+                    <button class="menu-btn" aria-label="More options">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <span class="stat-icon">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </span>
+
+                        <p class="stat-label">Age</p>
+                        <p class="stat-value">2 Years</p>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <span class="stat-icon">
+                            <i class="fa-solid fa-weight-scale"></i>
+                        </span>
+
+                        <p class="stat-label">Weight</p>
+                        <p class="stat-value">10 lbs</p>
+
+                    </div>
+
+                </div>
+
+                <button class="view-btn">
+                    <i class="fa-solid fa-eye"></i>
+                    View Profile
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- Add Another Pet -->
+        <a href="add_pet.html" class="add-card">
+
+            <div class="add-icon">
+                <i class="fa-solid fa-circle-plus"></i>
+            </div>
+
+            <h3 class="add-title">
+                Add Another Pet
+            </h3>
+
+            <p class="add-desc">
+                Create a new profile to track health,
+                appointments, and daily care.
+            </p>
+
+        </a>
+
+    </div>
+    </div>
+    </main>
+
+</body>
+
+</html>
