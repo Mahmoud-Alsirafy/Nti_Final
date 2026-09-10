@@ -3205,3 +3205,744 @@ textarea::placeholder{
 .save-btn:hover{
     background-color: #066c19;
 }
+
+
+/* Start Manage Appointment page  */
+
+
+.container{
+    max-width: 1050px;
+}
+
+.page-container {
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* ==============================
+    Main Content
+================================= */
+
+.manage-content {
+    width: 100%;
+    padding: 10px 6%;
+    padding-bottom: 100px;
+}
+
+
+/* ==============================
+    Header
+================================= */
+
+.manage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 42px;
+}
+
+.manage-header h1 {
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.manage-header p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #3f423f;
+    margin: 0;
+    max-width: 690px;
+}
+
+
+/* ==============================
+    Book Appointment Button
+================================= */
+
+.manage-btn {
+    border: none;
+
+    background-color: #ff9900;
+    color: #fff;
+
+    padding: 14px 26px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    min-width: 220px;
+
+    transition: 0.2s;
+}
+
+.manage-btn i {
+    margin-right: 8px;
+}
+
+.manage-btn:hover {
+    background: #e98900;
+    transform: translateY(-1px);
+}
+
+.manage-toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #c9ccc7;
+
+    margin-bottom: 35px;
+}
+
+.manage-tabs{
+    display: flex;
+    gap: 26px;
+
+}
+
+
+.tab {
+    border: none;
+    background: transparent;
+
+    padding: 0 0 15px;
+
+    font-size: 15px;
+    color: #343834;
+
+    position: relative;
+}
+
+
+.tab.active {
+    color: #087329;
+    font-weight: 600;
+}
+
+.tab.active::after {
+    content: "";
+
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: #087329;
+}
+
+
+/* ==============================
+    View Buttons
+================================= */
+
+.manage-buttons {
+    display: flex;
+
+    border: 1px solid #d1d4cf;
+    border-radius: 10px;
+
+    padding: 4px;
+
+    margin-bottom: 8px;
+}
+
+.left-btn {
+    border: none;
+    background: transparent;
+
+    width: 36px;
+    height: 32px;
+
+    border-radius: 6px;
+
+    color: #424842;
+}
+
+.left-btn.active {
+    background: #f3f5f1;
+    color: #087329;
+}
+
+
+/* ==============================
+    Appointment Card
+================================= */
+
+.manage-card {
+    background: #fff;
+
+    border: 1px solid #e2e4df;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.04);
+
+    height: 100%;
+
+    transition: 0.2s;
+}
+
+.manage-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==============================
+    Pet Image
+================================= */
+
+.manage-card-image {
+    height: 210px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.manage-card-image::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 100px;
+
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.65)
+    );
+}
+
+.manage-card-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* ==============================
+    Pet Information
+================================= */
+
+.manage-info {
+    position: absolute;
+
+    left: 18px;
+    bottom: 14px;
+
+    z-index: 2;
+
+    color: #fff;
+}
+
+.manage-info h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+
+    font-weight: 600;
+}
+
+.manage-info p {
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.manage-info i {
+    margin-right: 5px;
+}
+
+
+/* ==============================
+    Status
+================================= */
+
+.status {
+    position: absolute;
+
+    right: 13px;
+    top: 13px;
+
+    z-index: 3;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 0.5px;
+}
+
+.status i {
+    margin-right: 5px;
+}
+
+.confirmed {
+    background-color: #0a8b3b;
+    color: #fff;
+}
+
+.pending {
+    background-color: #f4a000;
+    color: #252525;
+}
+
+
+/* ==============================
+    Card Body
+================================= */
+
+.manage-card-body {
+    padding: 22px;
+}
+
+
+/* ==============================
+    Appointment Info
+================================= */
+
+.info-details {
+    display: flex;
+    gap: 18px;
+}
+
+.info-details-date {
+    width: 55px;
+    height: 55px;
+
+    border: 1px solid #d8ddd7;
+
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    background: #f5f7f4;
+}
+
+.info-details-date span {
+    font-size: 12px;
+    color: #087329;
+    font-weight: bold;
+}
+
+.info-details-date strong {
+    font-size: 20px;
+    line-height: 20px;
+    color: #087329;
+}
+
+
+
+.info-details-right {
+    flex: 1;
+}
+
+.detail-row {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.detail-row i {
+    width: 18px;
+
+    color: #566056;
+
+    margin-top: 2px;
+}
+
+.detail-row strong {
+    font-size: 14px;
+}
+
+
+/* ==============================
+    Horizontal Line
+================================= */
+
+.manage-card-body hr {
+    margin: 18px 0;
+
+    border: none;
+
+    border-top: 2px solid #e1e3df;
+
+    opacity: 1;
+}
+
+
+/* ==============================
+    Purpose
+================================= */
+
+.purpose label {
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    color: #687069;
+
+    margin-bottom: 12px;
+}
+
+.purpose-box {
+    min-height: 72px;
+
+    background: #f5f5f3;
+
+    border: 1px solid #e3e3df;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    font-size: 16px;
+
+    line-height: 1.45;
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* ==============================
+    Card Actions
+================================= */
+
+.purpose-action {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.purpose-action button {
+    flex: 1;
+
+    height: 44px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+/* Secondary */
+.secondary-btn {
+    background-color: #fff;
+
+    border: 1px solid #cbd0ca;
+
+    color: #303530;
+}
+
+.secondary-btn:hover {
+    background-color: #f3f4f1;
+}
+
+
+/* Primary */
+.primary-btn {
+    background-color: #00802b;
+
+    border: 1px solid #00802b;
+
+    color: #fff;
+}
+
+.primary-btn:hover {
+    background-color: #006e25;
+}
+
+
+/* Cancel */
+.cancel-action-btn {
+    background-color: #fff;
+
+    border: 1px solid #d2d5d1;
+
+    color: #a73333;
+}
+
+.cancel-action-btn:hover {
+    background-color: #fff5f5;
+}
+
+
+/* Contact */
+.contact-action-btn {
+    background-color: #f1f2ef;
+
+    border: 1px solid #f1f2ef;
+
+    color: #4b4e4b;
+}
+
+
+/* ==============================
+    Reminder
+================================= */
+
+.reminder {
+    margin-top: 50px;
+
+    min-height: 115px;
+
+    border: 1px solid #c7e8c1;
+
+    background: #ebf9e8;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 20px 26px;
+
+    gap: 25px;
+}
+
+
+.reminder-icon {
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    background-color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.reminder-icon i {
+    font-size: 28px;
+    color: #087329;
+}
+
+.reminder-content {
+    flex: 1;
+}
+
+.reminder-content h3 {
+    font-size: 20px;
+
+    margin-bottom: 6px;
+}
+
+.reminder-content p {
+    margin: 0;
+
+    color: #505850;
+
+    font-size: 16px;
+}
+
+.reminder-btn {
+    background-color: #087329;
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 14px 25px;
+
+    font-size: 15px;
+
+    white-space: nowrap;
+}
+
+.reminder-btn:hover {
+    background: #056322;
+}
+
+
+
+@media (max-width: 992px) {
+
+    .manage-content {
+        padding: 20px 4%;
+    }
+
+    .manage-header {
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    .manage-header h1 {
+        font-size: 31px;
+    }
+
+    .reminder-btn {
+        min-width: 190px;
+    }
+
+}
+
+
+
+@media (max-width: 768px) {
+
+    /* .top-search {
+        margin-bottom: 30px;
+    }
+
+    .search-box {
+        width: 100%;
+    } */
+
+    .manage-header {
+        flex-direction: column;
+    }
+
+    .manage-header h1 {
+        font-size: 28px;
+    }
+
+    .manage-header p {
+        font-size: 15px;
+    }
+
+    .reminder-btn {
+        width: 100%;
+    }
+
+    .manage-toolbar {
+        align-items: flex-end;
+    }
+
+    .manage-tabs {
+        gap: 15px;
+        overflow-x: auto;
+    }
+
+    .tab {
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    .manage-buttons {
+        display: none;
+    }
+
+    .reminder {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .reminder-content {
+        width: calc(100% - 90px);
+    }
+
+    .reminder-btn {
+        width: 100%;
+    }
+
+    /* .ai-assistant {
+        right: 15px;
+        bottom: 15px;
+    } */
+
+}
+
+
+@media (max-width: 480px) {
+
+    .manage-content {
+        padding: 15px;
+    }
+
+    .manage-header h1 {
+        font-size: 25px;
+    }
+
+    .manage-card-image {
+        height: 220px;
+    }
+
+    .manage-card-body {
+        padding: 17px;
+    }
+
+    .manage-info {
+        gap: 12px;
+    }
+
+    .detail-row {
+        font-size: 13px;
+    }
+
+    .purpose-action {
+        gap: 8px;
+    }
+
+    .purpose-action button {
+        font-size: 12px;
+    }
+
+    .reminder {
+        padding: 18px;
+        gap: 15px;
+    }
+
+    .reminder-icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    .reminder-content h3 {
+        font-size: 16px;
+    }
+
+    .reminder-content p {
+        font-size: 12px;
+    }
+
+    /* .ai-assistant {
+        height: 50px;
+        padding: 0 18px;
+        font-size: 13px;
+    } */
+}
