@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('pet_id')->references('id')->on('pet_infos')->onDelete('cascade');
             $table->foreignId('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->nullable();
-            $table->foreignId('adopter_id')->references('id')->on('users')->onDelete('cascade')->nullable();
+            $table->foreignId('adopter_id')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->string('why')->nullable();
             $table->timestamps();
         });
