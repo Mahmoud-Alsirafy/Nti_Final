@@ -9,19 +9,21 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard');
 // })->name('home');
 
-// // Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+use App\Http\Controllers\DashboardController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/dashboard/search-pet', [DashboardController::class, 'searchPet'])->name('dashboard.search-pet');
+});
 
 // // Pets Routes
 // Route::get('/my-pets', function () {
 //     return view('pets.index');
 // })->name('pets.index');
 
-Route::get('/pet-profile', function () {
-    return view('pets.show');
-})->name('pets.show');
+// Route::get('/pet-profile', function () {
+//     return view('pets.show');
+// })->name('pets.show');
 
 // Route::get('/add-pet', function () {
 //     return view('pets.create');
