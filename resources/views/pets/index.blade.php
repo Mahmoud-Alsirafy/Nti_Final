@@ -13,7 +13,7 @@
             <div class="grid">
 
                 <!-- Bella -->
-                @foreach ($pet_datas as $pet_data)
+                @forelse ($pet_datas as $pet_data)
                     <div class="card">
                         {{-- <input type="hidden" name="id" value="{{ $pet_data->id }}"> --}}
                         <div class="card-photo">
@@ -79,12 +79,9 @@
 
                         </div>
                     </div>
-                @endforeach
-
-
-
-
-
+                @empty
+                    <h1>you have no pets</h1>
+                @endforelse
                 <!-- Add Another Pet -->
                 <a href="{{ route('Pet.create') }}" class="add-card">
 

@@ -18,7 +18,7 @@ class Per_dataController extends Controller
      */
     public function index()
     {
-        $pet_datas = Pet_info::where('ownerId', Auth::id())->with('owner', 'images')->get();
+        return $pet_datas = Pet_info::where('ownerId', Auth::id())->with('owner', 'images')->get();
         return view('pets.index', compact('pet_datas'));
     }
 
