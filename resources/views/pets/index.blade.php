@@ -17,8 +17,13 @@
                     <div class="card">
                         {{-- <input type="hidden" name="id" value="{{ $pet_data->id }}"> --}}
                         <div class="card-photo">
-                            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=500&q=80"
-                                alt="Bella - Golden Retriever">
+                            @if ($pet_data->images && $pet_data->images->isNotEmpty())
+                                <img src="{{ asset('storage/uploads/attachments/pet/' . $pet_data->id . '/' . $pet_data->images->first()->filename) }}"
+                                    alt="{{ $pet_data->name }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=500&q=80"
+                                    alt="{{ $pet_data->name }}">
+                            @endif
 
                             <span class="status-badge">
                                 <span class="status-dot green"></span>

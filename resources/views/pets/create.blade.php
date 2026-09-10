@@ -14,7 +14,7 @@
                 Enter the details for your new furry friend to add them to your PetCare profile.
             </p>
 
-            <form action="{{ route('Pet.store') }}" method="POST">
+            <form action="{{ route('Pet.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <!-- Basic Information -->
                 <div class="card">
@@ -25,16 +25,25 @@
 
                         <div class="image-section">
 
-                            <label for="petFile" class="pet-image">
-                                <i class="fa-solid fa-image"></i>
+                            <label for="petFile" class="pet-image" style="overflow: hidden; cursor: pointer;">
+                                <i class="fa-solid fa-image" id="placeholderIcon"></i>
+                                <img id="imagePreview" src="" alt="Preview" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                             </label>
 
                             <input type="file" multiple id="petFile" name="image[]" accept="image/*" hidden>
 
+                            <button type="button" onclick="document.getElementById('petFile').click()">
+                                Choose File
+                            </button>
+                            <span id="fileCount" style="font-size: 12px; color: #666; max-width: 140px; text-align: center;"></span>
+                            @error('image')
+                                <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                            @enderror
+                            @error('image.*')
+                                <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                            @enderror
+
                         </div>
-                        <button type="button">
-                            Choose File
-                        </button>
 
                     </div>
 
@@ -89,7 +98,7 @@
                         <div class="two-inputs">
                             <div>
                                 <label>Weight</label>
-                                <input type="text" name="whight" value="{{ old('whight') }}">
+                                <input type="number" name="whight" value="{{ old('whight') }}">
                                 @error('whight')
                                     <span>{{ $message }}</span>
                                 @enderror
@@ -112,7 +121,7 @@
                                     <option value="">-- Select --</option>
                                     <option value="Dogs" {{ old('categore') == 'Dogs' }}>Dogs</option>
                                     <option value="Cats" {{ old('categore') == 'Cats' }}>Cats</option>
-                                    <option value="birds" {{ old('categore') == ' birds' }}>Birds</option>
+                                    <option value="birds" {{ old('categore') == 'birds' }}>Birds</option>
                                     <option value="other" {{ old('categore') == 'other' }}>Other</option>
                                 </select>
                                 @error('categore')
@@ -174,4 +183,34 @@
 
         </div>
     </main>
+
+    <script>
+        document.getElementById('petFile').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const preview = document.getElementById('imagePreview');
+            const icon = document.getElementById('placeholderIcon');
+            const countDisplay = document.getElementById('fileCount');
+
+            if (files && files.length > 0) {
+                if (files.length === 1) {
+                    countDisplay.textContent = files[0].name;
+                } else {
+                    countDisplay.textContent = files.length + ' files selected';
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                    icon.style.display = 'none';
+                };
+                reader.readAsDataURL(files[0]);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+                icon.style.display = 'block';
+                countDisplay.textContent = '';
+            }
+        });
+    </script>
 @endsection
