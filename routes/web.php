@@ -19,9 +19,9 @@ Route::get('/dashboard', function () {
 //     return view('pets.index');
 // })->name('pets.index');
 
-// Route::get('/pet-profile', function () {
-//     return view('pets.show');
-// })->name('pets.show');
+Route::get('/pet-profile', function () {
+    return view('pets.show');
+})->name('pets.show');
 
 // Route::get('/add-pet', function () {
 //     return view('pets.create');

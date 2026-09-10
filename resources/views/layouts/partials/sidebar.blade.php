@@ -15,12 +15,14 @@
     <!-- Menu -->
     <nav class="sidebar-menu">
 
-        <a href="{{ route('dashboard') }}" class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <span class="menu-icon">
-                <i class="fa-regular fa-chart-bar"></i>
-            </span>
-            <span>Dashboard</span>
-        </a>
+        @if (Auth::user()->type === 'admin')
+            <a href="{{ route('dashboard') }}" class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <span class="menu-icon">
+                    <i class="fa-regular fa-chart-bar"></i>
+                </span>
+                <span>Dashboard</span>
+            </a>
+        @endif
 
         <a href="{{ route('Pet.index') }}" class="menu-item {{ request()->routeIs('Pet.index') ? 'active' : '' }}">
             <span class="menu-icon">
@@ -30,7 +32,7 @@
         </a>
 
         <a href="{{ route('adoptions.index') }}"
-            class="menu-item {{ request()->routeIs('adoption.*') ? 'active' : '' }}">
+            class="menu-item {{ request()->routeIs('adoption.*', 'adoptions.*') ? 'active' : '' }}">
             <span class="menu-icon">
                 <i class="fa-solid fa-shield-cat"></i>
             </span>

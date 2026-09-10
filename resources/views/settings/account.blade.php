@@ -25,9 +25,7 @@
                     <div class="card">
                         <h2>Personal Information</h2>
 
-                        <form
-                            action="{{ Auth::user()->type === 'admin' ? route('Profile.store') : route('User_Profile.store') }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('Profile.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="photo-row">
                                 {{-- Avatar Preview --}}
