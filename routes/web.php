@@ -14,6 +14,8 @@ use App\Http\Controllers\DashboardController;
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/dashboard/search-pet', [DashboardController::class, 'searchPet'])->name('dashboard.search-pet');
+    Route::post('/dashboard/search-user-qr', [DashboardController::class, 'searchUserByQr'])->name('dashboard.search-user-qr');
+    Route::get('/dashboard/search-user-qr/{token?}', [DashboardController::class, 'searchUserByQr'])->name('dashboard.search-user-qr.get');
 });
 
 // // Pets Routes

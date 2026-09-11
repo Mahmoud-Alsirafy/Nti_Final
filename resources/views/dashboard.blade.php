@@ -57,16 +57,27 @@
                     </div>
                     <div>
                         <h2>Patient Lookup (Confidential Record Access)</h2>
-                        <p>Enter the pet owner's registered email and password to securely verify identity and access their pets' medical records.</p>
+                        <p>Search pet owner by registered credentials or scan their personal QR code to access medical records and pets.</p>
                     </div>
                 </div>
 
                 <div class="search-security-badge">
                     <i class="fa-solid fa-lock"></i>
-                    <span>Secure Credential Verification</span>
+                    <span>Secure Credential &amp; QR Verification</span>
                 </div>
             </div>
 
+            <!-- Search Mode Switcher Tabs -->
+            <div style="display: flex; gap: 8px; margin-bottom: 20px; background: #f1f5f9; padding: 4px; border-radius: 10px; max-width: 440px;">
+                <button type="button" id="btnTabCredentials" onclick="switchDashboardSearchMode('credentials')" style="flex: 1; padding: 8px 14px; border: none; background: #ffffff; color: #2f7d47; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); font-family: inherit;">
+                    <i class="fa-solid fa-key"></i> Email &amp; Password
+                </button>
+                <button type="button" id="btnTabQr" onclick="switchDashboardSearchMode('qr')" style="flex: 1; padding: 8px 14px; border: none; background: transparent; color: #64748b; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">
+                    <i class="fa-solid fa-qrcode"></i> Scan / Search by QR
+                </button>
+            </div>
+
+            <!-- Mode 1: Search by Email & Password -->
             <form id="petSearchForm" method="POST" action="{{ route('dashboard.search-pet') }}" class="dashboard-search-form">
                 @csrf
                 <div class="search-field-group">
@@ -105,9 +116,58 @@
 
                 <button type="submit" class="dashboard-search-submit" id="searchSubmitBtn">
                     <i class="fa-solid fa-magnifying-glass" id="searchSubmitIcon"></i>
-                    <span id="searchSubmitText">Verify & Find Pets</span>
+                    <span id="searchSubmitText">Verify &amp; Find Pets</span>
                 </button>
             </form>
+
+            <!-- Mode 2: Search by Owner QR Code -->
+            <form id="petSearchQrForm" method="POST" action="{{ route('dashboard.search-user-qr') }}" class="dashboard-search-form" style="display: none;">
+                @csrf
+                <div class="search-field-group" style="flex: 2;">
+                    <label for="searchQrCodeInput">
+                        <i class="fa-solid fa-qrcode"></i>
+                        Owner QR Code Token or Scanned URL
+                    </label>
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-barcode field-icon"></i>
+                        <input type="text"
+                               id="searchQrCodeInput"
+                               name="qr_code"
+                               placeholder="Scan or paste owner QR token (e.g. 123456789 or UUID)..."
+                               value="{{ old('qr_code', session('searched_qr')) }}"
+                               required>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap;">
+                    <button type="button" class="dashboard-search-submit" id="btnDashboardStartQrCamera" onclick="startDashboardQrScanner()" style="background: #ffffff; color: #2f7d47; border: 1px solid #2f7d47; min-width: 130px;" title="Scan with live camera">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Scan Camera</span>
+                    </button>
+
+                    <label class="dashboard-search-submit" style="background: #ffffff; color: #475569; border: 1px solid #cbd5e1; min-width: 120px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin: 0;" title="Upload QR image">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>Upload QR</span>
+                        <input type="file" accept="image/*" style="display: none;" onchange="dashboardScanQrFile(this)">
+                    </label>
+
+                    <button type="submit" class="dashboard-search-submit" id="searchQrSubmitBtn">
+                        <i class="fa-solid fa-magnifying-glass" id="searchQrSubmitIcon"></i>
+                        <span id="searchQrSubmitText">Find Owner via QR</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Dashboard QR Live Camera Box -->
+            <div id="dashboardQrCameraBox" style="display: none; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 16px; margin-top: 16px; margin-bottom: 20px; text-align: center;">
+                <div id="dashboard-qr-reader" style="max-width: 300px; margin: 0 auto; border-radius: 8px; overflow: hidden;"></div>
+                <p id="dashboardQrStatus" style="font-size: 13px; color: #64748b; margin: 10px 0 0; font-weight: 500;">
+                    <i class="fa-solid fa-camera"></i> Align pet owner's QR code within the scanner
+                </p>
+                <button type="button" onclick="stopDashboardQrScanner()" style="margin-top: 10px; padding: 6px 16px; font-size: 12.5px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #dc2626; cursor: pointer; font-weight: 600;">
+                    <i class="fa-solid fa-stop"></i> Close Camera
+                </button>
+            </div>
 
             <!-- Alerts: Errors / Validation -->
             @if ($errors->has('search_error'))
@@ -459,6 +519,7 @@
 @endsection
 
 @push('scripts')
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <script>
         // Password visibility toggle
         const toggleBtn = document.getElementById('togglePasswordBtn');
@@ -559,6 +620,174 @@
                     submitIcon.className = "fa-solid fa-magnifying-glass";
                 }
             });
+        }
+
+        // Switch between Credentials and QR Search Tabs
+        function switchDashboardSearchMode(mode) {
+            const btnCred = document.getElementById('btnTabCredentials');
+            const btnQr = document.getElementById('btnTabQr');
+            const formCred = document.getElementById('petSearchForm');
+            const formQr = document.getElementById('petSearchQrForm');
+            const cameraBox = document.getElementById('dashboardQrCameraBox');
+
+            if (mode === 'qr') {
+                btnCred.style.background = 'transparent';
+                btnCred.style.color = '#64748b';
+                btnCred.style.boxShadow = 'none';
+
+                btnQr.style.background = '#ffffff';
+                btnQr.style.color = '#2f7d47';
+                btnQr.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+
+                formCred.style.display = 'none';
+                formQr.style.display = 'flex';
+            } else {
+                btnQr.style.background = 'transparent';
+                btnQr.style.color = '#64748b';
+                btnQr.style.boxShadow = 'none';
+
+                btnCred.style.background = '#ffffff';
+                btnCred.style.color = '#2f7d47';
+                btnCred.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+
+                formQr.style.display = 'none';
+                formCred.style.display = 'flex';
+                stopDashboardQrScanner();
+            }
+        }
+
+        let dashboardQrScanner = null;
+        let isDashboardCameraActive = false;
+
+        function startDashboardQrScanner() {
+            const box = document.getElementById('dashboardQrCameraBox');
+            const status = document.getElementById('dashboardQrStatus');
+            box.style.display = 'block';
+
+            if (!dashboardQrScanner) {
+                dashboardQrScanner = new Html5Qrcode("dashboard-qr-reader");
+            }
+
+            status.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Initializing camera scanner...';
+
+            dashboardQrScanner.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 220, height: 220 } },
+                (decodedText) => {
+                    handleDashboardScannedQr(decodedText);
+                },
+                (error) => {}
+            ).then(() => {
+                isDashboardCameraActive = true;
+                status.innerHTML = '<i class="fa-solid fa-camera"></i> Camera scanning active. Point at owner QR code.';
+            }).catch(err => {
+                console.error("Dashboard camera error:", err);
+                status.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color: #dc2626;"></i> Camera error: ' + (err.message || 'Permission denied. Please paste QR token or upload image.');
+            });
+        }
+
+        function stopDashboardQrScanner() {
+            if (dashboardQrScanner && isDashboardCameraActive) {
+                dashboardQrScanner.stop().then(() => {
+                    isDashboardCameraActive = false;
+                    document.getElementById('dashboardQrCameraBox').style.display = 'none';
+                }).catch(err => console.error(err));
+            } else {
+                const box = document.getElementById('dashboardQrCameraBox');
+                if (box) box.style.display = 'none';
+            }
+        }
+
+        function dashboardScanQrFile(input) {
+            if (!input.files || !input.files[0]) return;
+            const file = input.files[0];
+
+            const scanner = new Html5Qrcode("dashboard-qr-reader");
+            showAjaxAlert("Scanning QR code from uploaded image...", "info");
+
+            scanner.scanFile(file, true)
+                .then(decodedText => {
+                    handleDashboardScannedQr(decodedText);
+                })
+                .catch(err => {
+                    console.error("Dashboard file scan error:", err);
+                    showAjaxAlert("No valid QR code found in this image. Please try another.", "danger");
+                });
+        }
+
+        function handleDashboardScannedQr(decodedText) {
+            let token = decodedText.trim();
+            if (token.includes('/qr/login/')) {
+                const parts = token.split('/qr/login/');
+                token = parts[parts.length - 1];
+            } else if (token.includes('/')) {
+                const parts = token.split('/');
+                token = parts[parts.length - 1];
+            }
+
+            document.getElementById('searchQrCodeInput').value = token;
+            stopDashboardQrScanner();
+
+            // Auto-trigger the search
+            executeQrSearch(token);
+        }
+
+        // AJAX search for Pet by Owner QR
+        const qrSearchForm = document.getElementById('petSearchQrForm');
+        const qrSubmitBtn = document.getElementById('searchQrSubmitBtn');
+        const qrSubmitText = document.getElementById('searchQrSubmitText');
+        const qrSubmitIcon = document.getElementById('searchQrSubmitIcon');
+
+        if (qrSearchForm) {
+            qrSearchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const token = document.getElementById('searchQrCodeInput').value.trim();
+                executeQrSearch(token);
+            });
+        }
+
+        async function executeQrSearch(qrToken) {
+            if (!qrToken) {
+                showAjaxAlert('Please enter or scan a pet owner QR code.', 'danger');
+                return;
+            }
+
+            qrSubmitBtn.disabled = true;
+            qrSubmitText.textContent = "Scanning...";
+            qrSubmitIcon.className = "fa-solid fa-circle-notch fa-spin";
+            hideAjaxAlert();
+            if (serverErrorAlert) serverErrorAlert.style.display = 'none';
+            if (serverResults) serverResults.style.display = 'none';
+
+            try {
+                const response = await fetch("{{ route('dashboard.search-user-qr') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ qr_code: qrToken })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    const errorMsg = data.message || 'No pet owner found matching this QR code.';
+                    showAjaxAlert(errorMsg, 'danger');
+                    ajaxContainer.style.display = 'none';
+                } else {
+                    renderSearchResults(data.owner, data.pets);
+                }
+            } catch (err) {
+                console.error("QR search error:", err);
+                showAjaxAlert("Network or server error while searching by QR. Please try again.", 'danger');
+            } finally {
+                qrSubmitBtn.disabled = false;
+                qrSubmitText.textContent = "Find Owner via QR";
+                qrSubmitIcon.className = "fa-solid fa-magnifying-glass";
+            }
         }
 
         function showAjaxAlert(message, type) {

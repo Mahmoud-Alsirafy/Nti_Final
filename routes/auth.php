@@ -39,6 +39,9 @@ Route::middleware('guest')->group(function () {
 Route::get('qr/login/{token}', [AuthenticatedSessionController::class, 'login'])
     ->name('qr.login');
 
+Route::post('qr/login', [AuthenticatedSessionController::class, 'loginPost'])
+    ->name('qr.login.post');
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

@@ -22,6 +22,26 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Handle login via scanned QR code or token POST.
+     */
+    public function loginPost(Request $request)
+    {
+        $token = $request->input('qr_code') ?? $request->input('token');
+
+        if (empty($token)) {
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please provide or scan a valid QR code.',
+                ], 422);
+            }
+            return redirect()->route('login')->withErrors(['error' => 'Please provide or scan a valid QR code.']);
+        }
+
+        return $this->login($token);
+    }
+
+    /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse

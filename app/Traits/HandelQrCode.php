@@ -65,18 +65,55 @@ trait HandelQrCode
     }
 
     /**
-     * Login user via QR token.
+     * Login user via QR token or scanned QR URL.
      */
     public function login(string $token)
     {
-        $user = User::where('qr_code', $token)->firstOrFail();
+        $token = trim($token);
 
-        Auth::login($user);
-        request()->session()->regenerate();
-        if ($user->type === 'admin') {
-            return redirect()->route('AdminDashboard');
+        // If scanned text is a URL, extract the token from the path or query
+        if (str_contains($token, '/')) {
+            $parts = explode('/', rtrim($token, '/'));
+            $token = end($parts);
         }
 
-        return redirect()->route('UserDashboard');
+        $user = User::where('qr_code', $token)->first();
+
+        if (!$user) {
+            if (request()->wantsJson() || request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid or unrecognized QR code.',
+                ], 404);
+            }
+
+            return redirect()->route('login')->withErrors(['error' => 'Invalid or unrecognized QR code. Please try again.']);
+        }
+
+        Auth::login($user);
+        if (request()->hasSession()) {
+            request()->session()->regenerate();
+        }
+
+        $redirectUrl = ($user->type === 'admin')
+            ? route('dashboard')
+            : route('Pet.index');
+
+        if (request()->wantsJson() || request()->ajax()) {
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Logged in successfully via QR Code!',
+                'redirect' => $redirectUrl,
+                'user'     => [
+                    'id'    => $user->id,
+                    'name'  => $user->name,
+                    'email' => $user->email,
+                    'type'  => $user->type,
+                ],
+            ]);
+        }
+
+        return redirect()->intended($redirectUrl)
+            ->with('success', "Welcome back, {$user->name}! You logged in via QR code.");
     }
 }
