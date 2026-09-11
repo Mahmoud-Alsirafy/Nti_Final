@@ -76,11 +76,23 @@
 
                             </div>
 
-                            <a href="{{ route('Pet.show', $pet_data->id) }}" class="view-btn"
-                                style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                                <i class="fa-solid fa-eye"></i>
-                                View Profile
-                            </a>
+                            <div style="display: flex; gap: 8px; margin-top: 10px;">
+                                <a href="{{ route('Pet.show', $pet_data->id) }}" class="view-btn"
+                                    style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; gap: 6px;">
+                                    <i class="fa-solid fa-eye"></i>
+                                    View Profile
+                                </a>
+                                <a href="{{ route('medical_history', $pet_data->id) }}" class="view-btn"
+                                    style="display: flex; align-items: center; justify-content: center; text-decoration: none; background: #ffffff; border: 1px solid #2f7d47; color: #2f7d47; padding: 0 12px;"
+                                    title="Show Medical Report">
+                                    <i class="fa-solid fa-file-medical"></i>
+                                </a>
+                                <a href="{{ route('medical_record', $pet_data->id) }}" class="view-btn"
+                                    style="display: flex; align-items: center; justify-content: center; text-decoration: none; background: #2f7d47; color: #ffffff; border: 1px solid #2f7d47; padding: 0 12px;"
+                                    title="Add Medical Report">
+                                    <i class="fa-solid fa-plus"></i>
+                                </a>
+                            </div>
 
                         </div>
                     </div>

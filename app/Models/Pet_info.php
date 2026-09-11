@@ -34,4 +34,9 @@ class Pet_info extends Model
     {
         return $this->hasMany(Adoption::class, 'pet_id');
     }
+
+    public function medicalRecords()
+    {
+        return $this->hasMany(MedicalRecord::class, 'pet_id');
+    }
 }

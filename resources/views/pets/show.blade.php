@@ -76,12 +76,23 @@
                 </div>
 
 
-                <!-- Edit Profile -->
+                <!-- Pet Header Actions -->
+                <div class="pet-header-actions" style="position: absolute; top: 34px; right: 30px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <a href="{{ route('medical_record', $pet_datas->id) }}" class="btn" style="padding: 9px 15px; background: #2f7d47; color: #ffffff; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-size: 13px; font-weight: 600; box-shadow: 0 2px 6px rgba(47,125,71,0.2); transition: all 0.2s ease;">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Medical Report
+                    </a>
 
-                <a href="#" class="edit-btn">
-                    <i class="fa-solid fa-pen"></i>
-                    Edit Profile
-                </a>
+                    <a href="{{ route('medical_history', $pet_datas->id) }}" class="btn" style="padding: 9px 15px; background: #ffffff; border: 1px solid #2f7d47; color: #2f7d47; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-size: 13px; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.03); transition: all 0.2s ease;">
+                        <i class="fa-solid fa-file-medical"></i>
+                        Show Medical Report
+                    </a>
+
+                    <a href="#" class="btn" style="padding: 9px 15px; background: #ffffff; border: 1px solid #d0dbc9; color: #64748b; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-pen"></i>
+                        Edit
+                    </a>
+                </div>
 
 
                 <!-- =========================
@@ -178,15 +189,18 @@
                 <div class="medical-card">
 
                     <div class="card-title">
-
                         <h2>
                             Recent Medical Activity
                         </h2>
 
-                        <a href="{{ route('medical_history') }}">
-                            View All
-                        </a>
-
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <a href="{{ route('medical_record', $pet_datas->id) }}" style="font-size: 12px; font-weight: 600; color: #2f7d47; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; background: #f0fdf4; border: 1px solid #bbf7d0;">
+                                <i class="fa-solid fa-plus"></i> Add Report
+                            </a>
+                            <a href="{{ route('medical_history', $pet_datas->id) }}" style="font-size: 12px; font-weight: 600; color: #166534; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; background: #f0fdf4; border: 1px solid #bbf7d0;">
+                                <i class="fa-solid fa-file-lines"></i> Show History
+                            </a>
+                        </div>
                     </div>
 
 

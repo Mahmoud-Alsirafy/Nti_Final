@@ -36,7 +36,7 @@
         </div>
     @endif
 
-    @if ($errors->has('error'))
+    @if (isset($errors) && $errors->has('error'))
         <div style="margin-left:250px; padding: 12px 30px; background:#fde8e8; color:#9b1c1c; font-size:14px; border-bottom:1px solid #f5c2c2;">
             {{ $errors->first('error') }}
         </div>

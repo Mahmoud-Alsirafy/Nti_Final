@@ -38,29 +38,18 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('book_appointment');
     });
 
-    // Medical History Routes
-    Route::get('/medical-history/{id?}', function ($id = null) {
-        if ($id) {
-            $pet = \App\Models\Pet_info::with(['owner', 'images'])->find($id);
-        } else {
-            $pet = \App\Models\Pet_info::where('ownerId', auth()->id())->with(['owner', 'images'])->first();
-        }
-        return view('medical_history', compact('pet'));
-    })->name('medical_history');
+    // Medical History Routes (handled by MedicalController)
+    Route::get('/medical-history/{id?}', [\App\Http\Controllers\Medical\MedicalController::class, 'history'])->name('medical_history');
     Route::get('/medical_history/{id?}', function ($id = null) {
         return redirect()->route('medical_history', $id ? ['id' => $id] : []);
     });
 
-    // Medical Record Routes
-    Route::get('/medical-record/{pet_id?}', function ($pet_id = null) {
-        $pets = \App\Models\Pet_info::where('ownerId', auth()->id())->get();
-        $selected_pet_id = $pet_id;
-        return view('medical_record', compact('pets', 'selected_pet_id'));
-    })->name('medical_record');
+    // Medical Record Routes (handled by MedicalController)
+    Route::get('/medical-record/{pet_id?}', [\App\Http\Controllers\Medical\MedicalController::class, 'record'])->name('medical_record');
     Route::get('/medical_record/{pet_id?}', function ($pet_id = null) {
         return redirect()->route('medical_record', $pet_id ? ['pet_id' => $pet_id] : []);
     });
-    Route::post('/medical-record', [NotificationController::class, 'storeMedicalRecord'])->name('medical_record.save');
+    Route::post('/medical-record', [\App\Http\Controllers\Medical\MedicalController::class, 'store'])->name('medical_record.save');
 
     // Notifications Routes handled by NotificationController
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
