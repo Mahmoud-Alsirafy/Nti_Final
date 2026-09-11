@@ -42,6 +42,9 @@ Route::get('qr/login/{token}', [AuthenticatedSessionController::class, 'login'])
 Route::post('qr/login', [AuthenticatedSessionController::class, 'loginPost'])
     ->name('qr.login.post');
 
+Route::post('qr/resend', [AuthenticatedSessionController::class, 'resendQr'])
+    ->name('qr.resend');
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

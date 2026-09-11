@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     // Profile & Admin QR
     Route::resource('Profile', PersonalDataController::class);
     Route::get('/admin/qr/regenerate', [PersonalDataController::class, 'regenerate'])->name('admin.qr.regenerate');
+    Route::match(['get', 'post'], '/qr/regenerate', [PersonalDataController::class, 'regenerate'])->name('qr.regenerate');
 
     // Appointment Booking
     Route::get('/book-appointment', function () {

@@ -189,6 +189,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div style="background:#fde8e8; color:#9b1c1c; font-size:12px; padding:10px 14px; border-radius:8px; margin-bottom:14px; border:1px solid #f5c2c2; text-align:center;">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if ($errors->any())
             <div style="background:#fde8e8; color:#9b1c1c; font-size:12px; padding:10px 14px; border-radius:8px; margin-bottom:14px; border:1px solid #f5c2c2; text-align:center;">
                 @foreach ($errors->all() as $error)
@@ -306,6 +312,22 @@
                     <i class="fa-solid fa-right-to-bracket"></i> Login with Token
                 </button>
             </form>
+
+            <!-- Resend QR Code by Email Option -->
+            <div style="margin-top: 15px; padding-top: 12px; border-top: 1px dashed #e2e8f0; text-align: center;">
+                <a href="javascript:void(0)" onclick="toggleResendQrForm()" style="font-size: 12.5px; color: #2f7d47; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-paper-plane"></i> Missing your QR Code? Resend to Email
+                </a>
+                <form id="formResendQr" action="{{ route('qr.resend') }}" method="POST" style="display: none; margin-top: 10px;">
+                    @csrf
+                    <div class="input-group" style="margin-bottom: 8px;">
+                        <input type="email" name="email" placeholder="Enter your registered email..." required style="font-size: 13px; height: 38px;">
+                    </div>
+                    <button type="submit" class="qr-action-btn primary" style="margin-bottom: 0;">
+                        <i class="fa-solid fa-envelope"></i> Send QR to My Email
+                    </button>
+                </form>
+            </div>
         </div>
 
         <p class="terms" style="margin-top: 18px;">
@@ -435,6 +457,13 @@
                     console.error('File scan error:', err);
                     setQrStatus('error', '<i class="fa-solid fa-xmark"></i> No valid QR code found in this image. Please try another image.');
                 });
+        }
+
+        function toggleResendQrForm() {
+            const form = document.getElementById('formResendQr');
+            if (form) {
+                form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+            }
         }
     </script>
 </body>

@@ -54,12 +54,15 @@
             <span>Settings</span>
         </a> --}}
 
-        <a href="#" class="menu-item">
-            <span class="menu-icon">
-                <i class="fa-solid fa-qrcode"></i>
-            </span>
-            <span>Regenerate QR Code</span>
-        </a>
+        <form method="POST" action="{{ route('qr.regenerate') }}" id="sidebarRegenerateQrForm" style="margin: 0;">
+            @csrf
+            <button type="submit" class="menu-item" style="width: 100%; border: none; background: transparent; text-align: left; cursor: pointer; font-family: inherit; font-size: inherit; color: inherit;" onclick="return confirm('Generate and email a fresh login QR code to {{ Auth::user()->email ?? 'your email' }}?');">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-qrcode"></i>
+                </span>
+                <span>Send / Regenerate QR</span>
+            </button>
+        </form>
 
     </nav>
 

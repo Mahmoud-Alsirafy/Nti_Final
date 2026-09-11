@@ -7,9 +7,9 @@ use App\Traits\HandelQrCode;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendQr implements ShouldQueue
+class SendQr
 {
-    use HandelQrCode, InteractsWithQueue;
+    use HandelQrCode;
 
     /**
      * Create the event listener.

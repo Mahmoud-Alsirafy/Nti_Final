@@ -42,6 +42,34 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Resend user's login QR code to their registered email.
+     */
+    public function resendQr(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->with('status', 'If an account exists with this email, your login QR code has been dispatched.');
+        }
+
+        if (empty($user->qr_code)) {
+            $user->qr_code = (string) \Illuminate\Support\Str::uuid();
+            $user->save();
+        }
+
+        try {
+            $user->notify(new \App\Notifications\SendQr());
+            return back()->with('status', "Your login QR code has been sent to {$user->email}! Please check your inbox or Mailtrap.");
+        } catch (\Throwable $e) {
+            return back()->withErrors(['error' => 'Mail delivery error: ' . $e->getMessage()]);
+        }
+    }
+
+    /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse

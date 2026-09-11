@@ -41,10 +41,10 @@ class GoogleController extends Controller
             Auth::login($user);
 
             if ($user->type === 'admin') {
-                return redirect()->route('AdminDashboard');
+                return redirect()->route('dashboard');
             }
 
-            return redirect()->route('UserDashboard');
+            return redirect()->route('Pet.index');
         } catch (Exception $e) {
             \Log::error('Google Auth Error: ' . $e->getMessage());
             // dd($e->getMessage()); // مؤقتاً عشان تشوف الـ error فوراً

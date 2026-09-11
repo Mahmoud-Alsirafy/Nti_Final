@@ -61,6 +61,6 @@ class RegisteredUserController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
 
-        return redirect(route('UserDashboard', absolute: false));
+        return redirect(route('Pet.index', absolute: false));
     }
 }

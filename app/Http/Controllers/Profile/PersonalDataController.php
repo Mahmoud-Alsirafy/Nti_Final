@@ -131,11 +131,18 @@ class PersonalDataController extends Controller
     public function regenerate()
     {
         $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         $user->qr_code = (string) Str::uuid();
         $user->save();
 
-        event(new GenrateQr($user));
-
-        return back()->with('success', 'QR Code regenerated successfully.');
+        try {
+            $user->notify(new \App\Notifications\SendQr());
+            return back()->with('success', "A fresh login QR code has been generated and emailed to {$user->email}!");
+        } catch (\Throwable $e) {
+            return back()->with('error', 'QR generated, but email sending failed: ' . $e->getMessage());
+        }
     }
 }
