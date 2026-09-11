@@ -183,7 +183,7 @@
                             Recent Medical Activity
                         </h2>
 
-                        <a href="#">
+                        <a href="{{ route('medical_history') }}">
                             View All
                         </a>
 

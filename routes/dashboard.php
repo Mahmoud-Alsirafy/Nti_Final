@@ -28,6 +28,44 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('Profile', PersonalDataController::class);
     Route::get('/admin/qr/regenerate', [PersonalDataController::class, 'regenerate'])
         ->name('admin.qr.regenerate');
+
+    // Appointment Booking Routes
+    Route::get('/book-appointment', function () {
+        $pets = \App\Models\Pet_info::where('ownerId', auth()->id())->with('images')->get();
+        return view('book_appointment', compact('pets'));
+    })->name('book_appointment');
+    Route::get('/book_appointment', function () {
+        return redirect()->route('book_appointment');
+    });
+
+    // Medical History Routes
+    Route::get('/medical-history', function () {
+        $pet = \App\Models\Pet_info::where('ownerId', auth()->id())->with(['owner', 'images'])->first();
+        return view('medical_history', compact('pet'));
+    })->name('medical_history');
+    Route::get('/medical_history', function () {
+        return redirect()->route('medical_history');
+    });
+
+    // Medical Record Routes
+    Route::get('/medical-record', function () {
+        $pets = \App\Models\Pet_info::where('ownerId', auth()->id())->get();
+        return view('medical_record', compact('pets'));
+    })->name('medical_record');
+    Route::get('/medical_record', function () {
+        return redirect()->route('medical_record');
+    });
+    Route::post('/medical-record', function (\Illuminate\Http\Request $request) {
+        return redirect()->route('medical_history')->with('success', 'Medical record logged successfully!');
+    })->name('medical_record.save');
+
+    // Notifications & Reminders Routes
+    Route::get('/notifications', function () {
+        return view('notification');
+    })->name('notification');
+    Route::get('/notification', function () {
+        return redirect()->route('notification');
+    });
 });
 
 

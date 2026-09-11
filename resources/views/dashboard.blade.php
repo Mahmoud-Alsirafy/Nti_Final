@@ -479,9 +479,9 @@
             });
         }
 
-        // Quick appointment alert
+        // Quick appointment navigation
         function bookAppointment() {
-            alert("New Appointment scheduler dialog ready for Dr. {{ Auth::user()->name }}.");
+            window.location.href = "{{ route('book_appointment') }}";
         }
 
         // Interactive status toggle for schedule
