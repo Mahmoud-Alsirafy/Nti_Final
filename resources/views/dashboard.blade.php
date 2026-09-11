@@ -12,13 +12,13 @@
                 <div class="dashboard-clinic-badge">
                     <i class="fa-solid fa-hospital"></i>
                     <span>{{ $clinic->clinicName ?? 'PetCare Veterinary Clinic' }}</span>
-                    @if(!empty($clinic->clinicNumber))
+                    @if (!empty($clinic->clinicNumber))
                         <span>• <i class="fa-solid fa-phone"></i> {{ $clinic->clinicNumber }}</span>
                     @endif
                 </div>
                 <h1>Welcome back, Dr. {{ Auth::user()->name }}!</h1>
                 <p>
-                    @if(!empty($clinic->clinicAddress))
+                    @if (!empty($clinic->clinicAddress))
                         <i class="fa-solid fa-location-dot"></i> {{ $clinic->clinicAddress }} •
                     @endif
                     Here is your clinical overview, patient lookup, and today's schedule.
@@ -26,7 +26,8 @@
             </div>
 
             <div class="dashboard-header-buttons">
-                <a href="#patientLookupSection" class="dashboard-btn-secondary" onclick="document.getElementById('searchOwnerEmail').focus();">
+                <a href="#patientLookupSection" class="dashboard-btn-secondary"
+                    onclick="document.getElementById('searchOwnerEmail').focus();">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     Patient Lookup
                 </a>
@@ -57,7 +58,8 @@
                     </div>
                     <div>
                         <h2>Patient Lookup (Confidential Record Access)</h2>
-                        <p>Search pet owner by registered credentials or scan their personal QR code to access medical records and pets.</p>
+                        <p>Search pet owner by registered credentials or scan their personal QR code to access medical
+                            records and pets.</p>
                     </div>
                 </div>
 
@@ -68,17 +70,21 @@
             </div>
 
             <!-- Search Mode Switcher Tabs -->
-            <div style="display: flex; gap: 8px; margin-bottom: 20px; background: #f1f5f9; padding: 4px; border-radius: 10px; max-width: 440px;">
-                <button type="button" id="btnTabCredentials" onclick="switchDashboardSearchMode('credentials')" style="flex: 1; padding: 8px 14px; border: none; background: #ffffff; color: #2f7d47; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); font-family: inherit;">
+            <div
+                style="display: flex; gap: 8px; margin-bottom: 20px; background: #f1f5f9; padding: 4px; border-radius: 10px; max-width: 440px;">
+                <button type="button" id="btnTabCredentials" onclick="switchDashboardSearchMode('credentials')"
+                    style="flex: 1; padding: 8px 14px; border: none; background: #ffffff; color: #2f7d47; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); font-family: inherit;">
                     <i class="fa-solid fa-key"></i> Email &amp; Password
                 </button>
-                <button type="button" id="btnTabQr" onclick="switchDashboardSearchMode('qr')" style="flex: 1; padding: 8px 14px; border: none; background: transparent; color: #64748b; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">
+                <button type="button" id="btnTabQr" onclick="switchDashboardSearchMode('qr')"
+                    style="flex: 1; padding: 8px 14px; border: none; background: transparent; color: #64748b; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit;">
                     <i class="fa-solid fa-qrcode"></i> Scan / Search by QR
                 </button>
             </div>
 
             <!-- Mode 1: Search by Email & Password -->
-            <form id="petSearchForm" method="POST" action="{{ route('dashboard.search-pet') }}" class="dashboard-search-form">
+            <form id="petSearchForm" method="POST" action="{{ route('dashboard.search-pet') }}"
+                class="dashboard-search-form">
                 @csrf
                 <div class="search-field-group">
                     <label for="searchOwnerEmail">
@@ -87,12 +93,8 @@
                     </label>
                     <div class="search-input-wrapper">
                         <i class="fa-solid fa-at field-icon"></i>
-                        <input type="email"
-                               id="searchOwnerEmail"
-                               name="email"
-                               placeholder="e.g. owner@gmail.com"
-                               value="{{ old('email', session('searched_email')) }}"
-                               required>
+                        <input type="email" id="searchOwnerEmail" name="email" placeholder="e.g. owner@gmail.com"
+                            value="{{ old('email', session('searched_email')) }}" required>
                     </div>
                 </div>
 
@@ -103,12 +105,10 @@
                     </label>
                     <div class="search-input-wrapper">
                         <i class="fa-solid fa-lock field-icon"></i>
-                        <input type="password"
-                               id="searchOwnerPassword"
-                               name="password"
-                               placeholder="Enter owner account password"
-                               required>
-                        <button type="button" class="toggle-password-btn" id="togglePasswordBtn" title="Show/Hide Password">
+                        <input type="password" id="searchOwnerPassword" name="password"
+                            placeholder="Enter owner account password" required>
+                        <button type="button" class="toggle-password-btn" id="togglePasswordBtn"
+                            title="Show/Hide Password">
                             <i class="fa-regular fa-eye" id="togglePasswordIcon"></i>
                         </button>
                     </div>
@@ -121,7 +121,8 @@
             </form>
 
             <!-- Mode 2: Search by Owner QR Code -->
-            <form id="petSearchQrForm" method="POST" action="{{ route('dashboard.search-user-qr') }}" class="dashboard-search-form" style="display: none;">
+            <form id="petSearchQrForm" method="POST" action="{{ route('dashboard.search-user-qr') }}"
+                class="dashboard-search-form" style="display: none;">
                 @csrf
                 <div class="search-field-group" style="flex: 2;">
                     <label for="searchQrCodeInput">
@@ -130,25 +131,28 @@
                     </label>
                     <div class="search-input-wrapper">
                         <i class="fa-solid fa-barcode field-icon"></i>
-                        <input type="text"
-                               id="searchQrCodeInput"
-                               name="qr_code"
-                               placeholder="Scan or paste owner QR token (e.g. 123456789 or UUID)..."
-                               value="{{ old('qr_code', session('searched_qr')) }}"
-                               required>
+                        <input type="text" id="searchQrCodeInput" name="qr_code"
+                            placeholder="Scan or paste owner QR token (e.g. 123456789 or UUID)..."
+                            value="{{ old('qr_code', session('searched_qr')) }}" required>
                     </div>
                 </div>
 
                 <div style="display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap;">
-                    <button type="button" class="dashboard-search-submit" id="btnDashboardStartQrCamera" onclick="startDashboardQrScanner()" style="background: #ffffff; color: #2f7d47; border: 1px solid #2f7d47; min-width: 130px;" title="Scan with live camera">
+                    <button type="button" class="dashboard-search-submit" id="btnDashboardStartQrCamera"
+                        onclick="startDashboardQrScanner()"
+                        style="background: #ffffff; color: #2f7d47; border: 1px solid #2f7d47; min-width: 130px;"
+                        title="Scan with live camera">
                         <i class="fa-solid fa-camera"></i>
                         <span>Scan Camera</span>
                     </button>
 
-                    <label class="dashboard-search-submit" style="background: #ffffff; color: #475569; border: 1px solid #cbd5e1; min-width: 120px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin: 0;" title="Upload QR image">
+                    <label class="dashboard-search-submit"
+                        style="background: #ffffff; color: #475569; border: 1px solid #cbd5e1; min-width: 120px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin: 0;"
+                        title="Upload QR image">
                         <i class="fa-solid fa-upload"></i>
                         <span>Upload QR</span>
-                        <input type="file" accept="image/*" style="display: none;" onchange="dashboardScanQrFile(this)">
+                        <input type="file" accept="image/*" style="display: none;"
+                            onchange="dashboardScanQrFile(this)">
                     </label>
 
                     <button type="submit" class="dashboard-search-submit" id="searchQrSubmitBtn">
@@ -159,12 +163,15 @@
             </form>
 
             <!-- Dashboard QR Live Camera Box -->
-            <div id="dashboardQrCameraBox" style="display: none; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 16px; margin-top: 16px; margin-bottom: 20px; text-align: center;">
-                <div id="dashboard-qr-reader" style="max-width: 300px; margin: 0 auto; border-radius: 8px; overflow: hidden;"></div>
+            <div id="dashboardQrCameraBox"
+                style="display: none; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 16px; margin-top: 16px; margin-bottom: 20px; text-align: center;">
+                <div id="dashboard-qr-reader"
+                    style="max-width: 300px; margin: 0 auto; border-radius: 8px; overflow: hidden;"></div>
                 <p id="dashboardQrStatus" style="font-size: 13px; color: #64748b; margin: 10px 0 0; font-weight: 500;">
                     <i class="fa-solid fa-camera"></i> Align pet owner's QR code within the scanner
                 </p>
-                <button type="button" onclick="stopDashboardQrScanner()" style="margin-top: 10px; padding: 6px 16px; font-size: 12.5px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #dc2626; cursor: pointer; font-weight: 600;">
+                <button type="button" onclick="stopDashboardQrScanner()"
+                    style="margin-top: 10px; padding: 6px 16px; font-size: 12.5px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #dc2626; cursor: pointer; font-weight: 600;">
                     <i class="fa-solid fa-stop"></i> Close Camera
                 </button>
             </div>
@@ -195,21 +202,24 @@
                             <div class="search-owner-meta">
                                 <h3>
                                     {{ $searchedOwner->name }}
-                                    <span class="owner-verified-pill"><i class="fa-solid fa-check-circle"></i> Verified Owner</span>
+                                    <span class="owner-verified-pill"><i class="fa-solid fa-check-circle"></i> Verified
+                                        Owner</span>
                                 </h3>
                                 <p>
                                     <span><i class="fa-solid fa-envelope"></i> {{ $searchedOwner->email }}</span>
-                                    @if(!empty($searchedOwner->phone))
+                                    @if (!empty($searchedOwner->phone))
                                         <span><i class="fa-solid fa-phone"></i> {{ $searchedOwner->phone }}</span>
                                     @endif
-                                    <span><i class="fa-solid fa-paw"></i> {{ $searchedPets->count() }} Registered {{ Str::plural('Pet', $searchedPets->count()) }}</span>
+                                    <span><i class="fa-solid fa-paw"></i> {{ $searchedPets->count() }} Registered
+                                        {{ Str::plural('Pet', $searchedPets->count()) }}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <h3 style="font-family:'Manrope',sans-serif; font-size:16px; margin:0 0 14px; color:#17261a;">
-                        <i class="fa-solid fa-paw" style="color:#2f7d47;"></i> Patients Registered Under This Owner ({{ $searchedPets->count() }})
+                        <i class="fa-solid fa-paw" style="color:#2f7d47;"></i> Patients Registered Under This Owner
+                        ({{ $searchedPets->count() }})
                     </h3>
 
                     @if ($searchedPets->isNotEmpty())
@@ -218,7 +228,8 @@
                                 <div class="search-pet-card">
                                     <div class="search-pet-card-photo">
                                         @if ($pet->images && $pet->images->isNotEmpty())
-                                            <img src="{{ asset('storage/uploads/attachments/pet/' . $pet->id . '/' . $pet->images->first()->filename) }}" alt="{{ $pet->name }}">
+                                            <img src="{{ asset('storage/uploads/attachments/pet/' . $pet->id . '/' . $pet->images->first()->filename) }}"
+                                                alt="{{ $pet->name }}">
                                         @else
                                             <div class="no-photo">
                                                 <i class="fa-solid fa-paw"></i>
@@ -238,11 +249,12 @@
                                             <div>
                                                 <h4>{{ $pet->name }}</h4>
                                                 <span class="pet-breed">
-                                                    <i class="fa-solid fa-tag"></i> {{ $pet->categore ?? 'Pet' }} • {{ $pet->type ?? 'Unknown Breed' }}
+                                                    <i class="fa-solid fa-tag"></i> {{ $pet->categore ?? 'Pet' }} •
+                                                    {{ $pet->type ?? 'Unknown Breed' }}
                                                 </span>
                                             </div>
                                             <span style="font-size:12px; color:#2f7d47; font-weight:600;">
-                                                @if($pet->gender === 'Male')
+                                                @if ($pet->gender === 'Male')
                                                     <i class="fa-solid fa-mars" title="Male"></i>
                                                 @else
                                                     <i class="fa-solid fa-venus" title="Female"></i>
@@ -265,7 +277,7 @@
                                             </div>
                                         </div>
 
-                                        @if(!empty($pet->health_info))
+                                        @if (!empty($pet->health_info))
                                             <div class="search-pet-health-box">
                                                 <strong>Medical Notes:</strong> {{ Str::limit($pet->health_info, 85) }}
                                             </div>
@@ -282,10 +294,13 @@
                             @endforeach
                         </div>
                     @else
-                        <div style="text-align:center; padding:30px; background:#fafbf9; border-radius:10px; border:1px dashed #cfd8d0;">
+                        <div
+                            style="text-align:center; padding:30px; background:#fafbf9; border-radius:10px; border:1px dashed #cfd8d0;">
                             <i class="fa-solid fa-paw" style="font-size:32px; color:#8da091; margin-bottom:8px;"></i>
-                            <p style="margin:0 0 10px; font-size:13px; color:#495b4e;">This owner currently has no registered pets.</p>
-                            <a href="{{ route('Pet.create') }}" class="dashboard-btn-primary" style="display:inline-flex;">
+                            <p style="margin:0 0 10px; font-size:13px; color:#495b4e;">This owner currently has no
+                                registered pets.</p>
+                            <a href="{{ route('Pet.create') }}" class="dashboard-btn-primary"
+                                style="display:inline-flex;">
                                 <i class="fa-solid fa-plus"></i> Register a Pet
                             </a>
                         </div>
@@ -319,7 +334,8 @@
                 <div class="dashboard-stat-content">
                     <p>Registered Pet Owners</p>
                     <h2>{{ number_format($totalOwners) }}</h2>
-                    <span class="badge-hint" style="color:#2b6cb0;"><i class="fa-solid fa-address-book"></i> Client Accounts</span>
+                    <span class="badge-hint" style="color:#2b6cb0;"><i class="fa-solid fa-address-book"></i> Client
+                        Accounts</span>
                 </div>
             </div>
 
@@ -331,7 +347,8 @@
                 <div class="dashboard-stat-content">
                     <p>Healthy Patients</p>
                     <h2>{{ number_format($healthyPets) }}</h2>
-                    <span class="badge-hint" style="color:#d97706;"><i class="fa-solid fa-check"></i> Good Standing</span>
+                    <span class="badge-hint" style="color:#d97706;"><i class="fa-solid fa-check"></i> Good
+                        Standing</span>
                 </div>
             </div>
 
@@ -343,7 +360,8 @@
                 <div class="dashboard-stat-content">
                     <p>Adoption Listings</p>
                     <h2>{{ number_format($totalAdoptions) }}</h2>
-                    <span class="badge-hint" style="color:#7c3aed;"><i class="fa-solid fa-hand-holding-heart"></i> Rehoming</span>
+                    <span class="badge-hint" style="color:#7c3aed;"><i class="fa-solid fa-hand-holding-heart"></i>
+                        Rehoming</span>
                 </div>
             </div>
         </div>
@@ -358,20 +376,27 @@
                         <i class="fa-solid fa-stethoscope" style="color:#2f7d47;"></i>
                         Recent Patients
                     </h2>
-                    <a href="{{ route('Pet.index') }}" class="dashboard-view-all-link">
-                        View All Patients →
-                    </a>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <a href="{{ route('medical_record') }}" class="dashboard-btn-secondary"
+                            style="padding: 5px 12px; font-size: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border-radius: 6px;">
+                            <i class="fa-solid fa-plus"></i> New Report
+                        </a>
+                        <a href="{{ route('Pet.index') }}" class="dashboard-view-all-link">
+                            View All Patients →
+                        </a>
+                    </div>
                 </div>
 
                 <div class="dashboard-recent-patients-grid">
                     @forelse ($recentPets as $pet)
-                        <a href="{{ route('Pet.show', $pet->id) }}" class="dashboard-patient-tile">
+                        <div class="dashboard-patient-tile" style="cursor: pointer;"
+                            onclick="if(!event.target.closest('a')) { window.location.href='{{ route('Pet.show', $pet->id) }}'; }">
                             @if ($pet->images && $pet->images->isNotEmpty())
                                 <img src="{{ asset('storage/uploads/attachments/pet/' . $pet->id . '/' . $pet->images->first()->filename) }}"
-                                     alt="{{ $pet->name }}"
-                                     class="dashboard-tile-img">
+                                    alt="{{ $pet->name }}" class="dashboard-tile-img">
                             @else
-                                <div class="dashboard-tile-img" style="display:flex; align-items:center; justify-content:center; color:#8fa193; font-size:22px;">
+                                <div class="dashboard-tile-img"
+                                    style="display:flex; align-items:center; justify-content:center; color:#8fa193; font-size:22px;">
                                     <i class="fa-solid fa-paw"></i>
                                 </div>
                             @endif
@@ -379,20 +404,49 @@
                             <div class="dashboard-tile-info">
                                 <div class="dashboard-tile-header">
                                     <h4>{{ $pet->name }}</h4>
-                                    <span class="health-pill {{ strtolower($pet->status) }}">
-                                        {{ ucfirst($pet->status) }}
+                                    <span class="health-pill {{ strtolower($pet->status ?? 'health') }}">
+                                        {{ ucfirst($pet->status ?? 'Health') }}
                                     </span>
                                 </div>
-                                <p>{{ $pet->type ?? 'Mixed Breed' }} • {{ $pet->age }} {{ Str::plural('yr', $pet->age) }}</p>
+                                <p>{{ $pet->categore ? $pet->categore . ' • ' : '' }}{{ $pet->type ?? 'Mixed Breed' }} • {{ $pet->age }}
+                                    {{ Str::plural('yr', $pet->age) }}</p>
                                 <span class="dashboard-tile-owner">
                                     <i class="fa-regular fa-user"></i> {{ $pet->owner->name ?? 'Unknown Owner' }}
                                 </span>
+
+                                @php
+                                    $latestReport = $pet->medicalRecords ? $pet->medicalRecords->first() : null;
+                                @endphp
+                                @if ($latestReport)
+                                    <div style="margin-top: 6px; padding: 4px 8px; background: #eef7f0; border-radius: 6px; font-size: 11px; color: #1e5631; display: flex; align-items: center; justify-content: space-between; gap: 6px; border: 1px solid #d4ebd8;">
+                                        <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; font-weight: 600;" title="{{ $latestReport->title ?: $latestReport->type }}">
+                                            <i class="fa-solid fa-file-waveform" style="color: #2f7d47;"></i> {{ $latestReport->title ?: $latestReport->type }}
+                                        </span>
+                                        <span style="color: #4a6b51; font-size: 10px; white-space: nowrap;">
+                                            {{ $latestReport->visit_date ? \Carbon\Carbon::parse($latestReport->visit_date)->format('M d') : ($latestReport->created_at ? $latestReport->created_at->format('M d') : '') }}
+                                        </span>
+                                    </div>
+                                @endif
+
+                                <div style="margin-top: 8px; display: flex; gap: 6px;">
+                                    <a href="{{ route('medical_history', $pet->id) }}"
+                                        style="flex: 1; padding: 4px 8px; font-size: 11px; font-weight: 600; text-align: center; border-radius: 6px; background: #2f7d47; color: #ffffff; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                                        <i class="fa-solid fa-notes-medical"></i> History
+                                    </a>
+                                    <a href="{{ route('Pet.show', $pet->id) }}"
+                                        style="padding: 4px 8px; font-size: 11px; font-weight: 600; text-align: center; border-radius: 6px; background: #ffffff; color: #495b4e; border: 1px solid #cfd8d0; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                                        <i class="fa-solid fa-paw"></i> Profile
+                                    </a>
+                                </div>
                             </div>
-                        </a>
+                        </div>
                     @empty
-                        <div style="grid-column: span 2; text-align:center; padding:30px; color:#788b7d;">
-                            <i class="fa-solid fa-paw" style="font-size:26px; margin-bottom:8px;"></i>
-                            <p style="margin:0;">No patients registered yet. Add a pet to get started.</p>
+                        <div style="grid-column: span 2; text-align:center; padding:30px; color:#788b7d; background:#fafbf9; border-radius:10px; border:1px dashed #cfd8d0;">
+                            <i class="fa-solid fa-file-medical" style="font-size:26px; margin-bottom:8px; color:#8fa193;"></i>
+                            <p style="margin:0 0 10px; font-size:13px;">No medical records logged yet.</p>
+                            <a href="{{ route('medical_record') }}" class="dashboard-btn-primary" style="display:inline-flex; padding:6px 14px; font-size:12px;">
+                                <i class="fa-solid fa-plus"></i> Add First Medical Report
+                            </a>
                         </div>
                     @endforelse
                 </div>
@@ -445,7 +499,7 @@
         </div>
 
         <!-- ================= TODAY'S SCHEDULE ================= -->
-        <section class="dashboard-schedule-container">
+        {{-- <section class="dashboard-schedule-container">
             <div class="dashboard-schedule-header">
                 <h2>
                     <i class="fa-regular fa-calendar-check" style="color:#2f7d47; margin-right:8px;"></i>
@@ -513,7 +567,7 @@
                     </span>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
     </main>
 @endsection
@@ -527,7 +581,7 @@
         const toggleIcon = document.getElementById('togglePasswordIcon');
 
         if (toggleBtn && passwordInput && toggleIcon) {
-            toggleBtn.addEventListener('click', function () {
+            toggleBtn.addEventListener('click', function() {
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
                     toggleIcon.classList.remove('fa-eye');
@@ -570,7 +624,7 @@
         const serverErrorAlert = document.getElementById('serverErrorAlert');
 
         if (searchForm) {
-            searchForm.addEventListener('submit', async function (e) {
+            searchForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
 
                 const email = document.getElementById('searchOwnerEmail').value.trim();
@@ -594,17 +648,22 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
                             'Accept': 'application/json',
                             'X-Requested-With': 'XMLHttpRequest'
                         },
-                        body: JSON.stringify({ email: email, password: password })
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
                     });
 
                     const data = await response.json();
 
                     if (!response.ok || !data.success) {
-                        const errorMsg = data.message || (data.errors ? Object.values(data.errors).flat().join('<br>') : 'Verification failed.');
+                        const errorMsg = data.message || (data.errors ? Object.values(data.errors).flat().join(
+                            '<br>') : 'Verification failed.');
                         showAjaxAlert(errorMsg, 'danger');
                         ajaxContainer.style.display = 'none';
                     } else {
@@ -613,7 +672,8 @@
                     }
                 } catch (err) {
                     console.error("Search error:", err);
-                    showAjaxAlert("Network or server error while verifying credentials. Please try again.", 'danger');
+                    showAjaxAlert("Network or server error while verifying credentials. Please try again.",
+                        'danger');
                 } finally {
                     submitBtn.disabled = false;
                     submitText.textContent = "Verify & Find Pets";
@@ -670,19 +730,28 @@
 
             status.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Initializing camera scanner...';
 
-            dashboardQrScanner.start(
-                { facingMode: "environment" },
-                { fps: 10, qrbox: { width: 220, height: 220 } },
+            dashboardQrScanner.start({
+                    facingMode: "environment"
+                }, {
+                    fps: 10,
+                    qrbox: {
+                        width: 220,
+                        height: 220
+                    }
+                },
                 (decodedText) => {
                     handleDashboardScannedQr(decodedText);
                 },
                 (error) => {}
             ).then(() => {
                 isDashboardCameraActive = true;
-                status.innerHTML = '<i class="fa-solid fa-camera"></i> Camera scanning active. Point at owner QR code.';
+                status.innerHTML =
+                    '<i class="fa-solid fa-camera"></i> Camera scanning active. Point at owner QR code.';
             }).catch(err => {
                 console.error("Dashboard camera error:", err);
-                status.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color: #dc2626;"></i> Camera error: ' + (err.message || 'Permission denied. Please paste QR token or upload image.');
+                status.innerHTML =
+                    '<i class="fa-solid fa-triangle-exclamation" style="color: #dc2626;"></i> Camera error: ' + (err
+                        .message || 'Permission denied. Please paste QR token or upload image.');
             });
         }
 
@@ -739,7 +808,7 @@
         const qrSubmitIcon = document.getElementById('searchQrSubmitIcon');
 
         if (qrSearchForm) {
-            qrSearchForm.addEventListener('submit', function (e) {
+            qrSearchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const token = document.getElementById('searchQrCodeInput').value.trim();
                 executeQrSearch(token);
@@ -764,11 +833,14 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
                         'Accept': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest'
                     },
-                    body: JSON.stringify({ qr_code: qrToken })
+                    body: JSON.stringify({
+                        qr_code: qrToken
+                    })
                 });
 
                 const data = await response.json();
@@ -792,7 +864,8 @@
 
         function showAjaxAlert(message, type) {
             ajaxAlert.className = 'search-alert search-alert-' + type;
-            ajaxAlert.innerHTML = '<i class="fa-solid fa-' + (type === 'success' ? 'circle-check' : 'triangle-exclamation') + '"></i> <span>' + message + '</span>';
+            ajaxAlert.innerHTML = '<i class="fa-solid fa-' + (type === 'success' ? 'circle-check' :
+                'triangle-exclamation') + '"></i> <span>' + message + '</span>';
             ajaxAlert.style.display = 'flex';
         }
 
@@ -802,7 +875,8 @@
         }
 
         function renderSearchResults(owner, pets) {
-            showAjaxAlert('Owner credentials verified successfully! Loaded ' + pets.length + ' registered patient(s).', 'success');
+            showAjaxAlert('Owner credentials verified successfully! Loaded ' + pets.length + ' registered patient(s).',
+                'success');
 
             let html = `
                 <div class="search-owner-card">
@@ -843,13 +917,13 @@
                 html += '<div class="search-pets-grid">';
                 pets.forEach(pet => {
                     const statusClass = (pet.status || 'unknown').toLowerCase();
-                    const photoHtml = pet.image_url
-                        ? `<img src="${pet.image_url}" alt="${escapeHtml(pet.name)}">`
-                        : `<div class="no-photo"><i class="fa-solid fa-paw"></i><small style="font-size:11px; color:#637567;">No Photo</small></div>`;
+                    const photoHtml = pet.image_url ?
+                        `<img src="${pet.image_url}" alt="${escapeHtml(pet.name)}">` :
+                        `<div class="no-photo"><i class="fa-solid fa-paw"></i><small style="font-size:11px; color:#637567;">No Photo</small></div>`;
 
-                    const genderIcon = pet.gender === 'Male'
-                        ? '<i class="fa-solid fa-mars" title="Male"></i>'
-                        : '<i class="fa-solid fa-venus" title="Female"></i>';
+                    const genderIcon = pet.gender === 'Male' ?
+                        '<i class="fa-solid fa-mars" title="Male"></i>' :
+                        '<i class="fa-solid fa-venus" title="Female"></i>';
 
                     html += `
                         <div class="search-pet-card">
@@ -892,10 +966,10 @@
                                 </div>
 
                                 ${pet.health_info ? `
-                                    <div class="search-pet-health-box">
-                                        <strong>Medical Notes:</strong> ${escapeHtml(pet.health_info)}
-                                    </div>
-                                ` : ''}
+                                        <div class="search-pet-health-box">
+                                            <strong>Medical Notes:</strong> ${escapeHtml(pet.health_info)}
+                                        </div>
+                                    ` : ''}
 
                                 <div class="search-pet-actions">
                                     <a href="${pet.show_url}" class="search-pet-btn">
@@ -912,7 +986,10 @@
 
             ajaxContainer.innerHTML = html;
             ajaxContainer.style.display = 'block';
-            ajaxContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            ajaxContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
 
         function escapeHtml(str) {

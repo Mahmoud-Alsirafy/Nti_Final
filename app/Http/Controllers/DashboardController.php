@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Adoption;
+use App\Models\MedicalRecord;
 use App\Models\Pet_info;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,11 +30,37 @@ class DashboardController extends Controller
         $healthyPets = Pet_info::where('status', 'health')->count();
         $totalAdoptions = Adoption::count();
 
-        // Recent Patients (pets) with owner and images
-        $recentPets = Pet_info::with(['owner', 'images'])
-            ->latest()
-            ->take(6)
-            ->get();
+        // Recent Patients: Pets that have medical reports, ordered by the latest medical report
+        $recentPetIds = MedicalRecord::whereNotNull('pet_id')
+            ->latest('id')
+            ->pluck('pet_id')
+            ->unique()
+            ->values()
+            ->take(6);
+
+        if ($recentPetIds->isNotEmpty()) {
+            $pets = Pet_info::with([
+                'owner',
+                'images',
+                'medicalRecords' => function ($query) {
+                    $query->latest('id');
+                },
+            ])
+            ->whereIn('id', $recentPetIds)
+            ->get()
+            ->keyBy('id');
+
+            // Maintain the chronological order of latest medical reports
+            $recentPets = $recentPetIds->map(function ($id) use ($pets) {
+                return $pets->get($id);
+            })->filter()->values();
+        } else {
+            // Fallback: If no medical records exist, show latest registered pets
+            $recentPets = Pet_info::with(['owner', 'images'])
+                ->latest()
+                ->take(6)
+                ->get();
+        }
 
         // Doctor's clinic details
         $clinic = $user->personalData;
