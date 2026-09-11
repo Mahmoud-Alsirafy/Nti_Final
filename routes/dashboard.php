@@ -6,6 +6,7 @@ use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Pet\Per_dataController;
 use App\Http\Controllers\Profile\PersonalDataController;
 use App\Models\Pet_info;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -19,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/adoptions/{id}', [AdoptionController::class, 'show'])->name('adoptions.show');
     Route::get('/adoptions/{id}/request', [AdoptionController::class, 'request'])->name('adoptions.request');
     Route::post('/adoptions/{id}/request', [AdoptionController::class, 'new_adoption'])->name('adoptions.request.submit');
+    Route::post('/adoptions/{id}/accept', [AdoptionController::class, 'accept'])->name('adoptions.accept');
+    Route::post('/adoptions/{id}/reject', [AdoptionController::class, 'reject'])->name('adoptions.reject');
 
     // Profile & Admin QR
     Route::resource('Profile', PersonalDataController::class);
@@ -26,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Appointment Booking
     Route::get('/book-appointment', function () {
-        $pets = Pet_info::where('ownerId', auth()->id())->with('images')->get();
+        $pets = Pet_info::where('ownerId', Auth::user()->id())->with('images')->get();
         return view('book_appointment', compact('pets'));
     })->name('book_appointment');
 

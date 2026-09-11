@@ -171,6 +171,47 @@ class NotificationController extends Controller
     }
 
     /**
+     * Send notification to applicant when their adoption application is accepted or rejected.
+     */
+    public static function sendAdoptionDecisionNotification(Adoption $adoption, string $decision, ?User $applicant = null)
+    {
+        $adopter = $applicant ?? $adoption->adopter;
+        $pet = $adoption->pet;
+
+        if (!$adopter || !$pet) {
+            return;
+        }
+
+        $accepted = ($decision === 'accepted');
+        $title = $accepted ? "Adoption Approved: Welcome {$pet->name}!" : "Adoption Request Update for {$pet->name}";
+        $message = $accepted
+            ? "Congratulations! Your application to adopt {$pet->name} has been approved by the owner. You are now the official caregiver!"
+            : "Your application to adopt {$pet->name} was not approved at this time. Thank you for your interest and caring heart.";
+        $type = $accepted ? 'urgent' : 'appointment';
+        $actionUrl = route('adoptions.show', $adoption->id);
+        $actionText = $accepted ? "View {$pet->name}'s Profile" : "Browse More Pets";
+
+        try {
+            $adopter->notify(new PetNotification($title, $message, $type, $actionUrl, $actionText));
+        } catch (\Throwable $e) {
+            Log::warning("Email delivery throttled/failed for adoption decision notification: " . $e->getMessage());
+
+            $adopter->notifications()->create([
+                'id' => (string) Str::uuid(),
+                'type' => PetNotification::class,
+                'data' => [
+                    'title' => $title,
+                    'message' => $message,
+                    'type' => $type,
+                    'action_url' => $actionUrl,
+                    'action_text' => $actionText,
+                ],
+                'read_at' => null,
+            ]);
+        }
+    }
+
+    /**
      * Send a test notification to the authenticated user.
      */
     public function sendTest(Request $request)

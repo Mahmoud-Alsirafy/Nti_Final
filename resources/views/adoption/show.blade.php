@@ -122,19 +122,61 @@
 
                         {{-- Action Buttons depending on ownership / status --}}
                         @if (auth()->id() == $adoption->owner_id)
-                            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px; text-align: center; margin-top: 10px;">
-                                <p style="margin: 0 0 8px; color: #166534; font-weight: 600; font-size: 13.5px;">
-                                    <i class="fa-solid fa-crown" style="color: #ca8a04;"></i> You own this pet listing
-                                </p>
-                                @if ($adoption->adopter)
-                                    <p style="margin: 0 0 10px; font-size: 12.5px; color: #374151;">
-                                        Applicant: <strong>{{ $adoption->adopter->name }}</strong> ({{ $adoption->adopter->email }})<br>
-                                        Reason: <em>"{{ $adoption->why }}"</em>
+                            <div style="background: #ffffff; border: 1px solid #d1fae5; border-radius: 12px; padding: 18px; text-align: left; margin-top: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                                    <span style="color: #166534; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+                                        <i class="fa-solid fa-crown" style="color: #ca8a04;"></i> You own this listing
+                                    </span>
+                                    <span style="font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 6px; {{ $adoption->status === 'accepted' ? 'background: #dcfce7; color: #15803d;' : ($adoption->status === 'pending' ? 'background: #fef3c7; color: #b45309;' : 'background: #f1f5f9; color: #475569;') }}">
+                                        Status: {{ ucfirst($adoption->status ?? 'Available') }}
+                                    </span>
+                                </div>
+
+                                @if ($adoption->status === 'accepted')
+                                    <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                                        <p style="margin: 0; color: #166534; font-size: 13.5px; font-weight: 600;">
+                                            <i class="fa-solid fa-circle-check"></i> Pet successfully adopted by {{ $adoption->adopter->name ?? 'New Caregiver' }}!
+                                        </p>
+                                    </div>
+                                @elseif ($adoption->adopter && $adoption->status === 'pending')
+                                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 14px;">
+                                        <div style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Pending Adoption Application:</div>
+                                        <div style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">
+                                            <i class="fa-solid fa-user" style="color: #2f7d47; margin-right: 4px;"></i> {{ $adoption->adopter->name }} 
+                                            <span style="font-weight: 400; font-size: 13px; color: #64748b;">({{ $adoption->adopter->email }})</span>
+                                        </div>
+                                        <div style="font-size: 13px; color: #334155; line-height: 1.5; background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; margin-top: 6px;">
+                                            <strong>Applicant Note:</strong> "{{ $adoption->why }}"
+                                        </div>
+                                    </div>
+
+                                    <!-- Accept & Reject Action Buttons -->
+                                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                        <form action="{{ route('adoptions.accept', $adoption->id) }}" method="POST" style="margin: 0; flex: 1;">
+                                            @csrf
+                                            <button type="submit" onclick="return confirm('Are you sure you want to ACCEPT this application and transfer {{ $adoption->pet->name }} to {{ $adoption->adopter->name }}?');" style="width: 100%; height: 42px; border: none; background: #2f7d47; color: #ffffff; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 6px rgba(47,125,71,0.25); transition: background 0.2s;">
+                                                <i class="fa-solid fa-check"></i> Accept Adoption
+                                            </button>
+                                        </form>
+
+                                        <form action="{{ route('adoptions.reject', $adoption->id) }}" method="POST" style="margin: 0; flex: 1;">
+                                            @csrf
+                                            <button type="submit" onclick="return confirm('Are you sure you want to REJECT this application? The listing will reopen for others.');" style="width: 100%; height: 42px; border: 1px solid #fca5a5; background: #ffffff; color: #dc2626; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s;">
+                                                <i class="fa-solid fa-xmark"></i> Reject Request
+                                            </button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <p style="margin: 0 0 10px; font-size: 13px; color: #64748b;">
+                                        No pending applications right now. Your listing is visible to prospective adopters.
                                     </p>
                                 @endif
-                                <a href="{{ route('Pet.show', $adoption->pet_id) }}" style="display: inline-flex; align-items: center; gap: 6px; color: #2f7d47; font-size: 13px; font-weight: 600; text-decoration: none;">
-                                    <i class="fa-solid fa-pen-to-square"></i> Manage in Pet Profile
-                                </a>
+
+                                <div style="text-align: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 6px;">
+                                    <a href="{{ route('Pet.show', $adoption->pet_id) }}" style="display: inline-flex; align-items: center; gap: 6px; color: #2f7d47; font-size: 13px; font-weight: 600; text-decoration: none;">
+                                        <i class="fa-solid fa-paw"></i> View Pet Profile &amp; Details
+                                    </a>
+                                </div>
                             </div>
                         @elseif ($adoption->adopter_id == auth()->id())
                             <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px; text-align: center; margin-top: 10px;">

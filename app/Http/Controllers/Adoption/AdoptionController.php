@@ -59,6 +59,68 @@ class AdoptionController extends Controller
             ->with('success', 'Your adoption application has been submitted successfully! The owner will review your request.');
     }
 
+    /**
+     * Accept adoption application and transfer pet to new owner.
+     */
+    public function accept($id)
+    {
+        $adoption = Adoption::with(['pet', 'adopter', 'owner'])->findOrFail($id);
+
+        if (Auth::id() != $adoption->owner_id && (Auth::user()->type ?? '') !== 'admin') {
+            return redirect()->back()->withErrors(['error' => 'Only the pet owner can accept adoption requests.']);
+        }
+
+        if (!$adoption->adopter_id) {
+            return redirect()->back()->withErrors(['error' => 'No applicant has applied yet.']);
+        }
+
+        $adoption->update([
+            'status' => 'accepted',
+        ]);
+
+        // Transfer pet ownership to new adopter
+        if ($adoption->pet) {
+            $adoption->pet->update([
+                'ownerId' => $adoption->adopter_id,
+            ]);
+        }
+
+        // Notify applicant of acceptance
+        if ($adoption->adopter) {
+            \App\Http\Controllers\Notification\NotificationController::sendAdoptionDecisionNotification($adoption, 'accepted');
+        }
+
+        return redirect()->route('adoptions.show', $adoption->id)
+            ->with('success', "Adoption approved! {$adoption->pet->name} has been transferred to {$adoption->adopter->name}.");
+    }
+
+    /**
+     * Reject adoption application and re-open pet listing.
+     */
+    public function reject($id)
+    {
+        $adoption = Adoption::with(['pet', 'adopter', 'owner'])->findOrFail($id);
+
+        if (Auth::id() != $adoption->owner_id && (Auth::user()->type ?? '') !== 'admin') {
+            return redirect()->back()->withErrors(['error' => 'Only the pet owner can reject adoption requests.']);
+        }
+
+        $adopter = $adoption->adopter;
+
+        $adoption->update([
+            'status' => 'rejected',
+            'adopter_id' => null, // re-open so other users can apply
+        ]);
+
+        // Notify applicant of rejection
+        if ($adopter) {
+            \App\Http\Controllers\Notification\NotificationController::sendAdoptionDecisionNotification($adoption, 'rejected', $adopter);
+        }
+
+        return redirect()->route('adoptions.show', $adoption->id)
+            ->with('success', 'Adoption request was rejected. The listing is now available for other applicants.');
+    }
+
     public function store_for_adoption(Request $request)
     {
         $validatedData = $request->validate([
