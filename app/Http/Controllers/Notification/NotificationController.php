@@ -188,7 +188,7 @@ class NotificationController extends Controller
             ? "Congratulations! Your application to adopt {$pet->name} has been approved by the owner. You are now the official caregiver!"
             : "Your application to adopt {$pet->name} was not approved at this time. Thank you for your interest and caring heart.";
         $type = $accepted ? 'urgent' : 'appointment';
-        $actionUrl = route('adoptions.show', $adoption->id);
+        $actionUrl = $accepted ? route('Pet.show', $pet->id) : route('adoptions.index');
         $actionText = $accepted ? "View {$pet->name}'s Profile" : "Browse More Pets";
 
         try {

@@ -12,7 +12,7 @@ class AdoptionController extends Controller
 {
     public function index()
     {
-        $adoptions = Adoption::with(['pet.images', 'owner'])->latest()->get();
+        $adoptions = Adoption::whereNull('status')->orWhere('status', 'pending')->with(['pet.images', 'owner'])->latest()->get();
         return view('adoption.index', compact('adoptions'));
     }
 
@@ -60,7 +60,7 @@ class AdoptionController extends Controller
     }
 
     /**
-     * Accept adoption application and transfer pet to new owner.
+     * Accept adoption application, transfer pet ownership, notify applicant, and remove listing from DB.
      */
     public function accept($id)
     {
@@ -74,24 +74,36 @@ class AdoptionController extends Controller
             return redirect()->back()->withErrors(['error' => 'No applicant has applied yet.']);
         }
 
-        $adoption->update([
-            'status' => 'accepted',
-        ]);
+        $pet = $adoption->pet;
+        $adopter = $adoption->adopter;
+        $petName = $pet->name ?? 'The pet';
+        $adopterName = $adopter->name ?? 'the new owner';
 
-        // Transfer pet ownership to new adopter
-        if ($adoption->pet) {
-            $adoption->pet->update([
-                'ownerId' => $adoption->adopter_id,
-            ]);
+        DB::beginTransaction();
+        try {
+            // Transfer pet ownership to new adopter
+            if ($pet && $adopter) {
+                $pet->update([
+                    'ownerId' => $adopter->id,
+                ]);
+            }
+
+            // Notify applicant of acceptance before removing the adoption record
+            if ($adopter && $pet) {
+                \App\Http\Controllers\Notification\NotificationController::sendAdoptionDecisionNotification($adoption, 'accepted');
+            }
+
+            // Remove the adoption record from the database
+            $adoption->delete();
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'Failed to process adoption: ' . $e->getMessage()]);
         }
 
-        // Notify applicant of acceptance
-        if ($adoption->adopter) {
-            \App\Http\Controllers\Notification\NotificationController::sendAdoptionDecisionNotification($adoption, 'accepted');
-        }
-
-        return redirect()->route('adoptions.show', $adoption->id)
-            ->with('success', "Adoption approved! {$adoption->pet->name} has been transferred to {$adoption->adopter->name}.");
+        return redirect()->route('adoptions.index')
+            ->with('success', "Adoption approved! {$petName} has been transferred to {$adopterName} and removed from adoption listings.");
     }
 
     /**
