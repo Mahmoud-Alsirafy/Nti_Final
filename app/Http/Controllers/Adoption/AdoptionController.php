@@ -52,6 +52,9 @@ class AdoptionController extends Controller
             'why'        => $validatedData['why'],
         ]);
 
+        // Notify Pet Owner via Database & Email
+        \App\Http\Controllers\Notification\NotificationController::sendAdoptionRequestNotification($adoption, Auth::user());
+
         return redirect()->route('adoptions.show', $adoption->id)
             ->with('success', 'Your adoption application has been submitted successfully! The owner will review your request.');
     }
