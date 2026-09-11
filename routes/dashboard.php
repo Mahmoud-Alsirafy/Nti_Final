@@ -4,7 +4,7 @@
 use App\Http\Controllers\Profile\PersonalDataController;
 use App\Http\Controllers\Adoption\AdoptionController;
 use App\Http\Controllers\Pet\Per_dataController;
-
+use App\Http\Controllers\Notification\NotificationController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -39,33 +39,33 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Medical History Routes
-    Route::get('/medical-history', function () {
-        $pet = \App\Models\Pet_info::where('ownerId', auth()->id())->with(['owner', 'images'])->first();
+    Route::get('/medical-history/{id?}', function ($id = null) {
+        if ($id) {
+            $pet = \App\Models\Pet_info::with(['owner', 'images'])->find($id);
+        } else {
+            $pet = \App\Models\Pet_info::where('ownerId', auth()->id())->with(['owner', 'images'])->first();
+        }
         return view('medical_history', compact('pet'));
     })->name('medical_history');
-    Route::get('/medical_history', function () {
-        return redirect()->route('medical_history');
+    Route::get('/medical_history/{id?}', function ($id = null) {
+        return redirect()->route('medical_history', $id ? ['id' => $id] : []);
     });
 
     // Medical Record Routes
-    Route::get('/medical-record', function () {
+    Route::get('/medical-record/{pet_id?}', function ($pet_id = null) {
         $pets = \App\Models\Pet_info::where('ownerId', auth()->id())->get();
-        return view('medical_record', compact('pets'));
+        $selected_pet_id = $pet_id;
+        return view('medical_record', compact('pets', 'selected_pet_id'));
     })->name('medical_record');
-    Route::get('/medical_record', function () {
-        return redirect()->route('medical_record');
+    Route::get('/medical_record/{pet_id?}', function ($pet_id = null) {
+        return redirect()->route('medical_record', $pet_id ? ['pet_id' => $pet_id] : []);
     });
-    Route::post('/medical-record', function (\Illuminate\Http\Request $request) {
-        return redirect()->route('medical_history')->with('success', 'Medical record logged successfully!');
-    })->name('medical_record.save');
+    Route::post('/medical-record', [NotificationController::class, 'storeMedicalRecord'])->name('medical_record.save');
 
-    // Notifications & Reminders Routes
-    Route::get('/notifications', function () {
-        return view('notification');
-    })->name('notification');
-    Route::get('/notification', function () {
-        return redirect()->route('notification');
-    });
+    // Notifications Routes handled by NotificationController
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark_all_read');
+    Route::post('/notifications/send-test', [NotificationController::class, 'sendTest'])->name('notifications.send_test');
 });
 
 

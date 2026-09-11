@@ -5,10 +5,8 @@
         <input type="text" placeholder="Search...">
     </div>
     <div class="navbar-right">
-        <a href="{{ route('notification') }}" class="nav-icon" aria-label="Notifications" title="Notifications" style="text-decoration: none;">
-            <i class="fa-solid fa-bell"></i>
-            <span class="notification-dot"></span>
-        </a>
+        <!-- Notification Dropdown Component -->
+        <x-notification-dropdown />
         <button class="nav-icon" aria-label="Messages">
             <i class="fa-regular fa-comment-dots"></i>
         </button>
