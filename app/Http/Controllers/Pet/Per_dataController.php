@@ -132,7 +132,13 @@ class Per_dataController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pet_data = Pet_info::with('images')->findOrFail($id);
+
+        if ($pet_data->ownerId != Auth::id()) {
+            return redirect()->route('Pet.index')->withErrors(['error' => 'You are not authorized to edit this pet.']);
+        }
+
+        return view('pets.edit', compact('pet_data'));
     }
 
     /**
@@ -140,7 +146,84 @@ class Per_dataController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pet_data = Pet_info::findOrFail($id);
+
+        if ($pet_data->ownerId != Auth::id()) {
+            return redirect()->route('Pet.index')->withErrors(['error' => 'You are not authorized to update this pet.']);
+        }
+
+        $request->validate([
+            'name'        => ['required', 'string', 'max:255'],
+            'Personality' => ['required', 'string', 'max:500'],
+            'gender'      => ['required', 'in:Male,Female'],
+            'whight'      => ['required', 'numeric', 'min:0'],
+            'type'        => ['required', 'string', 'max:255'],
+            'status'      => ['required', 'in:health,sick,unknown'],
+            'categore'    => ['required', 'in:Dogs,Cats,birds,other'],
+            'description' => ['required', 'string'],
+            'health_info' => ['required', 'string'],
+            'age'         => ['required', 'integer', 'min:0', 'max:255'],
+            'image'       => ['nullable'],
+            'image.*'     => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $pet_data->update([
+                'name'        => $request->name,
+                'Personality' => $request->Personality,
+                'gender'      => $request->gender,
+                'whight'      => $request->whight,
+                'type'        => $request->type,
+                'status'      => $request->status,
+                'categore'    => $request->categore,
+                'description' => $request->description,
+                'age'         => $request->age,
+                'health_info' => $request->health_info,
+            ]);
+
+            // Handle deleting selected existing images
+            if ($request->filled('delete_images') && is_array($request->delete_images)) {
+                foreach ($request->delete_images as $imageId) {
+                    $img = \App\Models\Images::where('id', $imageId)
+                        ->where('imageable_id', $pet_data->id)
+                        ->where('imageable_type', Pet_info::class)
+                        ->first();
+
+                    if ($img) {
+                        $filePath = 'attachments/pet/' . $pet_data->id . '/' . $img->filename;
+                        \Illuminate\Support\Facades\Storage::disk('uploads')->delete($filePath);
+                        $img->delete();
+                    }
+                }
+            }
+
+            // Handle uploading new images
+            if ($request->hasFile('image')) {
+                $images = $request->file('image');
+                if (!is_array($images)) {
+                    $images = [$images];
+                }
+
+                foreach ($images as $image) {
+                    if ($image && $image->isValid()) {
+                        $this->uploadFile(
+                            $image,
+                            $pet_data,
+                            'pet'
+                        );
+                    }
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('Pet.show', $pet_data->id)->with('success', 'Pet data updated successfully.');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->withErrors(['error' => 'Failed to update pet: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -148,6 +231,22 @@ class Per_dataController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pet_data = Pet_info::findOrFail($id);
+
+        if ($pet_data->ownerId != Auth::id()) {
+            return redirect()->route('Pet.index')->withErrors(['error' => 'You are not authorized to delete this pet.']);
+        }
+
+        try {
+            DB::beginTransaction();
+            $this->deleteFile($pet_data, 'pet');
+            $pet_data->delete();
+            DB::commit();
+
+            return redirect()->route('Pet.index')->with('success', 'Pet deleted successfully.');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'Failed to delete pet: ' . $e->getMessage()]);
+        }
     }
 }
