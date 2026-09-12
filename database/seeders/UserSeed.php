@@ -14,7 +14,22 @@ class UserSeed extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->delete();
+        User::create([
+            'name' => 'jana',
+            'email' => 'jana@gmail.com',
+            'password' => Hash::make('123456789'),
+            'type' => 'user',
+            'phone' => '1234567891',
+            'qr_code' => '1',
+        ]);
+        User::create([
+            'name' => 'salma',
+            'email' => 'salma@gmail.com',
+            'password' => Hash::make('123456789'),
+            'type' => 'user',
+            'phone' => '1234567899',
+            'qr_code' => '12',
+        ]);
         User::create([
             'name' => 'user',
             'email' => 'user@gmail.com',
@@ -30,6 +45,14 @@ class UserSeed extends Seeder
             'type' => 'admin',
             'phone' => '1234567890',
             'qr_code' => '1234567890',
+        ]);
+        User::create([
+            'name' => 'abdo',
+            'email' => 'abdo@gmail.com',
+            'password' => Hash::make('123456789'),
+            'type' => 'admin',
+            'phone' => '12345678905',
+            'qr_code' => '123',
         ]);
     }
 }
