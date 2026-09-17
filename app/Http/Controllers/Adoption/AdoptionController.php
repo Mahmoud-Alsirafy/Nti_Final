@@ -120,7 +120,7 @@ class AdoptionController extends Controller
         $adopter = $adoption->adopter;
 
         $adoption->update([
-            'status' => 'rejected',
+            'status' => null,
             'adopter_id' => null, // re-open so other users can apply
         ]);
 
